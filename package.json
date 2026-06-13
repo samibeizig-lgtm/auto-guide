@@ -1,0 +1,1 @@
+{"name":"auto-guide","version":"1.0.0","private":true,"scripts":{"dev":"nuxt dev","build":"nuxt build","generate":"nuxt generate","preview":"nuxt preview"},"dependencies":{"nuxt":"^3.13.0","@nuxtjs/tailwindcss":"^6.12.0","@heroicons/vue":"^2.2.0"},"devDependencies":{"tailwindcss":"^3.4.0","autoprefixer":"^10.4.20"}}
