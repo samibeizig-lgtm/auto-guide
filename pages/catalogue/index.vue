@@ -61,13 +61,8 @@
         <!-- En-tête marque -->
         <div class="flex items-center gap-5 mb-6">
           <!-- Logo -->
-          <div class="w-14 h-14 rounded-2xl bg-white border border-gray-100 shadow-sm flex items-center justify-center p-1 flex-shrink-0">
-            <img
-              :src="`https://logo.clearbit.com/${brand.domain}`"
-              :alt="brand.name"
-              class="w-10 h-10 object-contain"
-              @error="(e) => (e.target as HTMLImageElement).src = ''"
-            />
+          <div class="w-14 h-14 rounded-2xl border border-gray-100 shadow-sm flex-shrink-0 overflow-hidden">
+            <BrandLogo :brand="brand.name" :brand-color="brand.color" />
           </div>
           <div class="flex-1 min-w-0">
             <div class="flex items-center gap-3 flex-wrap">
@@ -162,8 +157,8 @@ const brandsWithCars = computed(() =>
       name: brand,
       cars: brandCars,
       fuelTypes,
-      domain: info?.logo?.replace('https://logo.clearbit.com/', '') ?? `${brand.toLowerCase()}.com`,
       country: info?.country ?? '',
+      color: info?.color ?? '#374151',
       hasElectric: brandCars.some(c => c.fuel === 'Électrique'),
     }
   })
