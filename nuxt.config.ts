@@ -1,6 +1,17 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss'],
+  nitro: {
+    output: {
+      publicDir: 'out',
+    },
+    prerender: {
+      crawlLinks: true,
+    },
+  },
+  routeRules: {
+    '/**': { prerender: true },
+  },
   app: {
     head: {
       title: 'Guide Auto Tunisie',
