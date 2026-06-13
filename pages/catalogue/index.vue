@@ -18,9 +18,9 @@
       >
         <div class="w-12 h-12 flex items-center justify-center">
           <img
-            :src="`/logos/${b.key}.png`"
+            :src="`/logos/${b.key}.svg`"
             :alt="b.name"
-            class="max-w-full max-h-full object-contain"
+            class="max-w-full max-h-full object-contain rounded-xl"
             @error="(e) => showFallback(e, b)"
           />
         </div>
