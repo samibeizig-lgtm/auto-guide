@@ -1,21 +1,38 @@
 <template>
-  <header class="bg-white shadow-sm sticky top-0 z-50">
+  <header
+    class="sticky top-0 z-50 transition-all duration-300"
+    :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-transparent'"
+  >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <NuxtLink to="/" class="flex items-center gap-2">
-          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        <NuxtLink to="/" class="flex items-center gap-2.5 group">
+          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center group-hover:bg-primary-500 transition-colors shadow-sm">
+            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+              <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h3.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-6a1 1 0 00-.293-.707l-3-3A1 1 0 0016 4H3z"/>
             </svg>
           </div>
-          <span class="font-bold text-xl text-gray-900">Guide Auto <span class="text-primary-600">Tunisie</span></span>
+          <div>
+            <span class="font-bold text-lg leading-none" :class="scrolled || !isHome ? 'text-gray-900' : 'text-white'">Guide Auto</span>
+            <span class="block text-xs font-medium text-primary-500 leading-none mt-0.5">Tunisie</span>
+          </div>
         </NuxtLink>
 
-        <nav class="hidden md:flex items-center gap-8">
-          <NuxtLink to="/catalogue" class="text-gray-600 hover:text-primary-600 font-medium transition-colors" active-class="text-primary-600">Catalogue</NuxtLink>
-          <NuxtLink to="/comparateur" class="text-gray-600 hover:text-primary-600 font-medium transition-colors" active-class="text-primary-600">Comparateur</NuxtLink>
-          <NuxtLink to="/prix" class="text-gray-600 hover:text-primary-600 font-medium transition-colors" active-class="text-primary-600">Prix & Cotes</NuxtLink>
-          <NuxtLink to="/actualites" class="text-gray-600 hover:text-primary-600 font-medium transition-colors" active-class="text-primary-600">Actualités</NuxtLink>
+        <nav class="hidden md:flex items-center gap-1">
+          <NuxtLink
+            v-for="link in navLinks"
+            :key="link.to"
+            :to="link.to"
+            class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+            :class="[
+              scrolled || !isHome
+                ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                : 'text-white/80 hover:text-white hover:bg-white/10',
+              $route.path.startsWith(link.to) && link.to !== '/' ? 'text-primary-600 bg-primary-50' : ''
+            ]"
+          >
+            {{ link.label }}
+          </NuxtLink>
         </nav>
 
         <div class="flex items-center gap-3">
@@ -25,7 +42,7 @@
             </svg>
             Comparer
           </NuxtLink>
-          <button class="md:hidden p-2 text-gray-600" @click="menuOpen = !menuOpen">
+          <button class="md:hidden p-2 rounded-lg" :class="scrolled || !isHome ? 'text-gray-600' : 'text-white'" @click="menuOpen = !menuOpen">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path v-if="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -34,16 +51,41 @@
         </div>
       </div>
 
-      <div v-if="menuOpen" class="md:hidden border-t border-gray-100 py-3 space-y-1">
-        <NuxtLink to="/catalogue" class="block px-3 py-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg" @click="menuOpen = false">Catalogue</NuxtLink>
-        <NuxtLink to="/comparateur" class="block px-3 py-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg" @click="menuOpen = false">Comparateur</NuxtLink>
-        <NuxtLink to="/prix" class="block px-3 py-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg" @click="menuOpen = false">Prix & Cotes</NuxtLink>
-        <NuxtLink to="/actualites" class="block px-3 py-2 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg" @click="menuOpen = false">Actualités</NuxtLink>
-      </div>
+      <Transition name="dropdown">
+        <div v-if="menuOpen" class="md:hidden border-t border-gray-100 py-3 space-y-1 bg-white">
+          <NuxtLink v-for="link in navLinks" :key="link.to" :to="link.to" class="block px-3 py-2.5 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg font-medium" @click="menuOpen = false">
+            {{ link.label }}
+          </NuxtLink>
+          <NuxtLink to="/comparateur" class="block mx-3 mt-2 btn-primary text-center text-sm py-2.5" @click="menuOpen = false">
+            Comparer des véhicules
+          </NuxtLink>
+        </div>
+      </Transition>
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
+const route = useRoute()
 const menuOpen = ref(false)
+const scrolled = ref(false)
+
+const isHome = computed(() => route.path === '/')
+
+const navLinks = [
+  { to: '/catalogue', label: 'Catalogue' },
+  { to: '/prix', label: 'Prix & Cotes' },
+  { to: '/actualites', label: 'Actualités' },
+]
+
+onMounted(() => {
+  const onScroll = () => { scrolled.value = window.scrollY > 60 }
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onUnmounted(() => window.removeEventListener('scroll', onScroll))
+})
 </script>
+
+<style scoped>
+.dropdown-enter-active, .dropdown-leave-active { transition: all 0.2s ease; }
+.dropdown-enter-from, .dropdown-leave-to { opacity: 0; transform: translateY(-8px); }
+</style>

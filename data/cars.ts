@@ -36,7 +36,7 @@ export const cars: Car[] = [
     engine: '1.8L',
     consumption: 4.5,
     seats: 5,
-    image: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1638618164682-12b986ec2a75?w=800&q=80',
     description: 'La Toyota Corolla hybride est l\'une des voitures les plus fiables et économiques sur le marché tunisien.',
     features: ['Climatisation auto', 'Caméra de recul', 'Apple CarPlay', 'Android Auto', 'Régulateur de vitesse adaptatif'],
     pros: ['Fiabilité légendaire', 'Faible consommation', 'Coût d\'entretien bas'],
