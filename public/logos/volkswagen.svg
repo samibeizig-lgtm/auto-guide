@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="48" fill="#001E50"/>
-  <circle cx="50" cy="50" r="36" fill="none" stroke="#fff" stroke-width="2"/>
-  <text x="50" y="44" text-anchor="middle" font-size="18" font-weight="bold" fill="#fff" font-family="Arial">V</text>
-  <line x1="35" y1="52" x2="65" y2="52" stroke="#fff" stroke-width="2"/>
-  <text x="50" y="68" text-anchor="middle" font-size="18" font-weight="bold" fill="#fff" font-family="Arial">W</text>
-</svg>
