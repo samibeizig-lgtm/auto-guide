@@ -1,7 +1,7 @@
 <template>
   <header
     class="sticky top-0 z-50 transition-all duration-300"
-    :class="scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100' : 'bg-transparent'"
+    :class="isTransparent ? 'bg-transparent' : 'bg-white shadow-sm border-b border-gray-100'"
   >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
@@ -13,7 +13,7 @@
             </svg>
           </div>
           <div>
-            <span class="font-bold text-lg leading-none" :class="scrolled || !isHome ? 'text-gray-900' : 'text-white'">Guide Auto</span>
+            <span class="font-bold text-lg leading-none" :class="isTransparent ? 'text-white' : 'text-gray-900'">Guide Auto</span>
             <span class="block text-xs font-medium text-primary-500 leading-none mt-0.5">Tunisie</span>
           </div>
         </NuxtLink>
@@ -24,12 +24,10 @@
             :key="link.to"
             :to="link.to"
             class="px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200"
-            :class="[
-              scrolled || !isHome
-                ? 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
-                : 'text-white/80 hover:text-white hover:bg-white/10',
-              $route.path.startsWith(link.to) && link.to !== '/' ? 'text-primary-600 bg-primary-50' : ''
-            ]"
+            :class="isTransparent
+              ? 'text-white/80 hover:text-white hover:bg-white/10'
+              : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'"
+            active-class="!text-primary-600 !bg-primary-50"
           >
             {{ link.label }}
           </NuxtLink>
@@ -42,7 +40,11 @@
             </svg>
             Comparer
           </NuxtLink>
-          <button class="md:hidden p-2 rounded-lg" :class="scrolled || !isHome ? 'text-gray-600' : 'text-white'" @click="menuOpen = !menuOpen">
+          <button
+            class="md:hidden p-2 rounded-lg"
+            :class="isTransparent ? 'text-white' : 'text-gray-600'"
+            @click="menuOpen = !menuOpen"
+          >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path v-if="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -71,6 +73,7 @@ const menuOpen = ref(false)
 const scrolled = ref(false)
 
 const isHome = computed(() => route.path === '/')
+const isTransparent = computed(() => isHome.value && !scrolled.value)
 
 const navLinks = [
   { to: '/catalogue', label: 'Catalogue' },
