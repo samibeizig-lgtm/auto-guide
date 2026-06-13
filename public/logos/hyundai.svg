@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" rx="16" fill="#002C5F"/>
+  <ellipse cx="100" cy="100" rx="90" ry="60" fill="none" stroke="white" stroke-width="4"/>
+  <text x="100" y="120" text-anchor="middle" font-family="Arial,sans-serif" font-weight="900" font-size="100" font-style="italic" fill="white">H</text>
+</svg>

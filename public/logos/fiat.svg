@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <circle cx="100" cy="100" r="98" fill="#8B0000"/>
+  <circle cx="100" cy="100" r="80" fill="none" stroke="white" stroke-width="6"/>
+  <text x="100" y="118" text-anchor="middle" font-family="Arial Black,sans-serif" font-weight="900" font-size="54" letter-spacing="4" fill="white">FIAT</text>
+</svg>
