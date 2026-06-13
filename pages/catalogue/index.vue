@@ -16,13 +16,8 @@
           ? 'border-primary-500 bg-primary-50 shadow-md'
           : 'border-gray-100 bg-white hover:border-gray-300 hover:shadow-sm'"
       >
-        <div class="w-12 h-12 flex items-center justify-center">
-          <img
-            :src="`/logos/${b.key}.png`"
-            :alt="b.name"
-            class="max-w-full max-h-full object-contain rounded-xl"
-            @error="(e) => showFallback(e, b)"
-          />
+        <div class="w-12 h-12 rounded-xl overflow-hidden border border-gray-100 shadow-sm">
+          <BrandLogo :brand="b.name" :brand-color="b.color" />
         </div>
         <span class="text-xs font-semibold text-center leading-tight" :class="selectedBrand === b.name ? 'text-primary-700' : 'text-gray-700'">
           {{ b.name }}
