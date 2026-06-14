@@ -37,7 +37,7 @@
         <div class="w-px h-5 bg-gray-200" />
         <div class="flex items-center gap-3">
           <div class="w-10 h-10">
-            <BrandLogo :brand="selectedBrand" />
+            <BrandLogo :brand="selectedBrand" :sanity-logo="brandList.find(b => b.name === selectedBrand)?.logo ?? undefined" />
           </div>
           <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wide">{{ selectedBrand }}</h2>
         </div>
