@@ -58,7 +58,6 @@
 
         <div class="flex gap-3">
           <NuxtLink :to="`/comparateur?ids=${car.id}`" class="btn-primary flex-1 text-center text-sm py-2.5">Comparer</NuxtLink>
-          <NuxtLink to="/prix" class="flex-1 text-center text-sm py-2.5 border border-gray-200 rounded-lg text-gray-600 hover:border-gray-300 font-medium transition-colors">Voir la cote</NuxtLink>
         </div>
       </div>
     </div>
@@ -96,33 +95,7 @@
       </div>
     </div>
 
-    <!-- ③ POINTS FORTS / FAIBLES -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-      <div class="bg-green-50 border border-green-100 rounded-2xl p-5">
-        <h2 class="font-bold text-green-800 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-          Points forts
-        </h2>
-        <ul class="space-y-2">
-          <li v-for="pro in car.pros" :key="pro" class="flex items-start gap-2 text-sm text-green-800">
-            <span class="font-bold text-green-500 mt-0.5 flex-shrink-0">+</span>{{ pro }}
-          </li>
-        </ul>
-      </div>
-      <div class="bg-red-50 border border-red-100 rounded-2xl p-5">
-        <h2 class="font-bold text-red-700 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
-          Points faibles
-        </h2>
-        <ul class="space-y-2">
-          <li v-for="con in car.cons" :key="con" class="flex items-start gap-2 text-sm text-red-700">
-            <span class="font-bold text-red-400 mt-0.5 flex-shrink-0">–</span>{{ con }}
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- ④ ÉQUIPEMENTS PAR CATÉGORIE (si disponibles) -->
+    <!-- ③ ÉQUIPEMENTS PAR CATÉGORIE (si disponibles) -->
     <div v-if="car.equipmentCategories && car.equipmentCategories.length > 0" class="mb-8">
       <h2 class="text-lg font-bold text-gray-900 mb-4">Équipements</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -167,7 +140,33 @@
       </ul>
     </div>
 
-    <!-- ⑥ MODÈLES SIMILAIRES -->
+    <!-- ④ POINTS FORTS / FAIBLES -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+      <div class="bg-green-50 border border-green-100 rounded-2xl p-5">
+        <h2 class="font-bold text-green-800 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+          Points forts
+        </h2>
+        <ul class="space-y-2">
+          <li v-for="pro in car.pros" :key="pro" class="flex items-start gap-2 text-sm text-green-800">
+            <span class="font-bold text-green-500 mt-0.5 flex-shrink-0">+</span>{{ pro }}
+          </li>
+        </ul>
+      </div>
+      <div class="bg-red-50 border border-red-100 rounded-2xl p-5">
+        <h2 class="font-bold text-red-700 mb-3 flex items-center gap-2 text-sm uppercase tracking-wide">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg>
+          Points faibles
+        </h2>
+        <ul class="space-y-2">
+          <li v-for="con in car.cons" :key="con" class="flex items-start gap-2 text-sm text-red-700">
+            <span class="font-bold text-red-400 mt-0.5 flex-shrink-0">–</span>{{ con }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ⑤ MODÈLES SIMILAIRES -->
     <div>
       <h2 class="text-lg font-bold text-gray-900 mb-4">Modèles similaires</h2>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">

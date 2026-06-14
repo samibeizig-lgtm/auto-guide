@@ -1,3 +1,5 @@
+import type { EquipmentSpec } from './equipment'
+
 export interface Car {
   id: number
   brand: string
@@ -36,12 +38,14 @@ export interface Car {
   driveType?: string
   // Options disponibles
   options?: string[]
-  // Équipements par catégorie
+  // Équipements par catégorie (affichage fiche)
   equipmentCategories?: {
     label: string
     icon: string
     items: string[]
   }[]
+  // Fiche standardisée pour comparaison
+  equipment?: Partial<EquipmentSpec>
   // Infos supplémentaires
   warranty?: string
   warrantyBattery?: string
@@ -423,6 +427,36 @@ export const cars: Car[] = [
     acceleration: 9.7,
     topSpeed: 175,
     driveType: 'Traction (FWD)',
+    warranty: '3 ans / 100 000 km',
+    warrantyBattery: '5 ans / 150 000 km',
+    consumptionUrban: 2.2,
+    consumptionExtraUrban: 3.2,
+    gears: 5,
+    cylinders: 3,
+    equipment: {
+      warranty: '3 ans / 100 000 km', warrantyBattery: '5 ans / 150 000 km',
+      gearbox: 'Automatique', driveType: 'Traction (FWD)', hybridType: 'Full Hybride',
+      abs: true, esp: true, asr: true, eba: true, tpms: false,
+      airbagsFront: true, airbagsLateral: true, airbagsRideau: true, airbagsCentral: true,
+      isofix: true,
+      autonomousLevel: 'Non', accAdaptive: false, speedLimiter: true,
+      lka: false, fcw: false, aebs: false, bsd: false, rcta: false,
+      pedestrianDetect: false, fatigueDetect: false, autoHighBeam: false,
+      signRecognition: false, hillStart: true, autohold: true,
+      cameraRear: true, camera360: false, parkingSensorsRear: false, parkingSensorsFront: false,
+      parkAssist: false, electricTrunk: false,
+      touchscreen: '9"', digitalCluster: '4.2"', hud: false, gps: false, connectedServices: false,
+      androidAuto: true, appleCarplay: true, bluetooth: true, voiceControl: true,
+      wirelessCharger: true, usb: true,
+      soundSystem: 'Toyota Touch', speakers: 6,
+      climateAuto: true, climateZones: 1, heatedSeats: false, ventilatedSeats: false,
+      electricSeats: false, massageSeats: false, seatMemory: false,
+      keyless: false, electricHandbrake: true, drivingModes: true,
+      electricWindows: 'Avant', foldingMirrors: false, rearArmrest: false,
+      ledHeadlights: true, ledDrl: true, ledTaillights: true, adaptiveHeadlights: false,
+      wheelSize: '15"', panoramicRoof: false, sunroof: false,
+      metalPaint: true, sportKit: false,
+    },
   },
   {
     id: 16,
@@ -1092,6 +1126,33 @@ export const cars: Car[] = [
     warranty: '5 ans (2+3)',
     warrantyBattery: '8 ans',
     fiscalPower: 7,
+    consumptionUrban: undefined,
+    consumptionExtraUrban: undefined,
+    // Fiche standardisée comparateur
+    equipment: {
+      warranty: '5 ans (2+3)', warrantyBattery: '8 ans',
+      gearbox: 'Automatique', driveType: 'Propulsion (RWD)', hybridType: 'Électrique',
+      abs: true, esp: true, asr: true, eba: true, tpms: true,
+      airbagsFront: true, airbagsLateral: true, airbagsRideau: true, airbagsCentral: false,
+      isofix: true,
+      autonomousLevel: 'Niveau 2', accAdaptive: true, speedLimiter: true,
+      lka: true, fcw: true, aebs: true, bsd: true, rcta: true,
+      pedestrianDetect: true, fatigueDetect: true, autoHighBeam: true,
+      signRecognition: false, hillStart: true, autohold: false,
+      cameraRear: true, camera360: true, parkingSensorsRear: true, parkingSensorsFront: true,
+      parkAssist: true, electricTrunk: true,
+      touchscreen: '14.9"', digitalCluster: '12.3"', hud: true, gps: true, connectedServices: true,
+      androidAuto: true, appleCarplay: true, bluetooth: true, voiceControl: true,
+      wirelessCharger: true, usb: true,
+      soundSystem: 'Harman/Kardon', speakers: 12,
+      climateAuto: true, climateZones: 4, heatedSeats: false, ventilatedSeats: true,
+      electricSeats: true, massageSeats: false, seatMemory: true,
+      keyless: true, electricHandbrake: true, drivingModes: true,
+      electricWindows: 'AV/AR', foldingMirrors: true, rearArmrest: true,
+      ledHeadlights: true, ledDrl: true, ledTaillights: true, adaptiveHeadlights: true,
+      wheelSize: '20"', panoramicRoof: true, sunroof: false,
+      metalPaint: true, sportKit: true,
+    },
     // Équipements par catégorie
     equipmentCategories: [
       {
