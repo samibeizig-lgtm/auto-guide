@@ -1,0 +1,24 @@
+name: Import data to Sanity
+
+on:
+  workflow_dispatch:
+
+jobs:
+  import:
+    name: Import cars and brands to Sanity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install @sanity/client
+        run: npm install --no-save @sanity/client
+
+      - name: Run import script
+        env:
+          SANITY_API_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+        run: node sanity/import.mjs
