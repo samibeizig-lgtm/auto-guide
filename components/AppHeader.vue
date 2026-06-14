@@ -1,9 +1,9 @@
 <template>
-  <header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
+  <header class="bg-gray-900 border-b border-gray-800 shadow-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         <NuxtLink to="/" class="flex items-center">
-          <img src="/logo-site.webp" alt="Tunisiamotors.com" class="h-14 sm:h-16 w-auto" />
+          <img src="/logo-site.png" alt="Tunisiamotors.com" class="h-14 sm:h-16 w-auto" />
         </NuxtLink>
 
         <nav class="hidden md:flex items-center gap-1">
@@ -11,8 +11,8 @@
             v-for="link in navLinks"
             :key="link.to"
             :to="link.to"
-            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-all duration-200"
-            active-class="text-primary-600 bg-primary-50 hover:bg-primary-50 hover:text-primary-600"
+            class="px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-800 transition-all duration-200"
+            active-class="text-primary-400 bg-gray-800 hover:bg-gray-800 hover:text-primary-400"
           >
             {{ link.label }}
           </NuxtLink>
@@ -25,7 +25,7 @@
             </svg>
             Comparer
           </NuxtLink>
-          <button class="md:hidden p-2 rounded-lg text-gray-600" @click="menuOpen = !menuOpen">
+          <button class="md:hidden p-2 rounded-lg text-gray-300" @click="menuOpen = !menuOpen">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path v-if="!menuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               <path v-else stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -35,12 +35,12 @@
       </div>
 
       <Transition name="dropdown">
-        <div v-if="menuOpen" class="md:hidden border-t border-gray-100 py-3 space-y-1">
+        <div v-if="menuOpen" class="md:hidden border-t border-gray-700 py-3 space-y-1">
           <NuxtLink
             v-for="link in navLinks"
             :key="link.to"
             :to="link.to"
-            class="block px-3 py-2.5 text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg font-medium"
+            class="block px-3 py-2.5 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg font-medium"
             @click="menuOpen = false"
           >
             {{ link.label }}
