@@ -4,7 +4,7 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div class="col-span-1 md:col-span-2">
           <div class="mb-4">
-            <img src="/logo-site.jpg" alt="Tunisiamotors.com" class="h-10 w-auto brightness-0 invert" />
+            <img src="/logo-site.jpg" alt="Tunisiamotors.com" class="h-10 w-auto" />
           </div>
           <p class="text-sm leading-relaxed mb-4">
             Votre référence automobile en Tunisie. Voitures neuves, comparateurs, prix et actualités pour vous aider à faire le meilleur choix.

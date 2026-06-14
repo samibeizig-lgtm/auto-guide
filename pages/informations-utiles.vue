@@ -50,7 +50,7 @@
           </tbody>
         </table>
       </div>
-      <p class="text-xs text-gray-400 mt-2 ml-1">Source : Loi de finances tunisienne. Les montants peuvent être révisés annuellement.</p>
+      <p class="text-xs text-amber-600 mt-2 ml-1 font-medium">⚠️ Valeurs indicatives — veuillez vérifier les tarifs exacts auprès de la Direction Régionale du Transport (DRT) ou sur le site officiel du Ministère des Finances.</p>
     </section>
 
     <!-- 2. Immatriculation (Carte grise) -->
@@ -203,15 +203,15 @@ const sections = [
 ]
 
 const vignetteTable = [
-  { cv: '≤4', label: '4 CV et moins',  new: 37,  old: 22 },
-  { cv: '5',  label: '5 CV',           new: 62,  old: 37 },
-  { cv: '6',  label: '6 CV',           new: 100, old: 60 },
-  { cv: '7',  label: '7 CV',           new: 150, old: 90 },
-  { cv: '8',  label: '8 CV',           new: 200, old: 120 },
-  { cv: '9',  label: '9 CV',           new: 250, old: 150 },
-  { cv: '10', label: '10 CV',          new: 320, old: 190 },
-  { cv: '11', label: '11 CV',          new: 400, old: 240 },
-  { cv: '≥12',label: '12 CV et plus',  new: 500, old: 300 },
+  { cv: '≤4', label: '4 CV et moins',  new: 50,  old: 30 },
+  { cv: '5',  label: '5 CV',           new: 85,  old: 50 },
+  { cv: '6',  label: '6 CV',           new: 130, old: 80 },
+  { cv: '7',  label: '7 CV',           new: 180, old: 110 },
+  { cv: '8',  label: '8 CV',           new: 235, old: 140 },
+  { cv: '9',  label: '9 CV',           new: 295, old: 175 },
+  { cv: '10', label: '10 CV',          new: 360, old: 215 },
+  { cv: '11', label: '11 CV',          new: 440, old: 265 },
+  { cv: '≥12',label: '12 CV et plus',  new: 550, old: 330 },
 ]
 
 const immatriculationDocs = [
