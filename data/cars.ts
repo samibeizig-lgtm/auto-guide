@@ -9,9 +9,13 @@ export interface Car {
   fuel: string
   transmission: string
   power: number
+  torque?: number
   engine: string
+  displacement?: number
   consumption: number
+  emissions?: number
   seats: number
+  doors?: number
   image: string
   description: string
   features: string[]
@@ -19,6 +23,19 @@ export interface Car {
   cons: string[]
   rating: number
   available: boolean
+  // Dimensions
+  length?: number
+  width?: number
+  height?: number
+  wheelbase?: number
+  trunkVolume?: number
+  weight?: number
+  // Performances
+  acceleration?: number
+  topSpeed?: number
+  driveType?: string
+  // Options disponibles
+  options?: string[]
 }
 
 export const cars: Car[] = [
@@ -627,16 +644,55 @@ export const cars: Car[] = [
     fuel: 'Essence',
     transmission: 'Automatique',
     power: 156,
-    engine: '2.0L',
+    torque: 250,
+    engine: '318i 2.0 TwinPower Turbo',
+    displacement: 1998,
     consumption: 6.5,
+    emissions: 148,
     seats: 5,
+    doors: 4,
     image: '/cars/bmw-serie1.webp',
-    description: 'La BMW Série 3 est la référence absolue des berlines premium en Tunisie, offrant un plaisir de conduite incomparable.',
-    features: ['iDrive 8', 'Écran courbe 14.9"', 'Son Harman Kardon', 'HUD', 'Sièges sport', 'Toit panoramique'],
-    pros: ['Plaisir de conduite exceptionnel', 'Prestige', 'Technologie avancée'],
-    cons: ['Prix très élevé', 'Entretien coûteux', 'Taxes importantes'],
+    description: 'La BMW Série 3 320i 2026 est la référence absolue des berlines premium en Tunisie. Alliant dynamisme, technologie et prestige, elle reste le choix numéro un des passionnés.',
+    features: [
+      'Système iDrive 8.5 avec écran courbe 14.9"',
+      'Instrumentation numérique 12.3"',
+      'Navigation BMW Maps',
+      'Son Harman Kardon 16 HP',
+      'Head-Up Display',
+      'Sièges sport en cuir',
+      'Toit panoramique en verre',
+      'Keyless Entry & Go',
+      'Parking Assistant Plus',
+      'Régulateur adaptatif avec Stop & Go',
+      'Alertes de collision frontale',
+      'Lane Keeping Assistant',
+    ],
+    pros: ['Plaisir de conduite exceptionnel', 'Finition irréprochable', 'Technologie de pointe', 'Valeur à la revente élevée'],
+    cons: ['Prix très élevé', 'Entretien coûteux', 'Taxes d\'immatriculation importantes'],
     rating: 4.7,
     available: true,
+    // Dimensions
+    length: 4709,
+    width: 1827,
+    height: 1435,
+    wheelbase: 2851,
+    trunkVolume: 480,
+    weight: 1520,
+    // Performances
+    acceleration: 8.5,
+    topSpeed: 213,
+    driveType: 'Propulsion (RWD)',
+    // Options disponibles
+    options: [
+      'Pack M Sport (jantes 19", kit carrosserie, volant M)',
+      'Pack Confort (sièges chauffants avant/arrière, vitres électro-teintées)',
+      'Pack Technologie (surround view caméra, parking automatique)',
+      'Pack Son premium Bowers & Wilkins',
+      'Peinture métallisée',
+      'Toit panoramique étendu',
+      'Sellerie Merino cuir',
+      'Chargeur sans fil 15W',
+    ],
   },
   {
     id: 29,
