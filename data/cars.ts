@@ -630,7 +630,7 @@ export const cars: Car[] = [
     engine: '2.0L',
     consumption: 6.5,
     seats: 5,
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&q=80',
+    image: '/cars/bmw-serie1.webp',
     description: 'La BMW Série 3 est la référence absolue des berlines premium en Tunisie, offrant un plaisir de conduite incomparable.',
     features: ['iDrive 8', 'Écran courbe 14.9"', 'Son Harman Kardon', 'HUD', 'Sièges sport', 'Toit panoramique'],
     pros: ['Plaisir de conduite exceptionnel', 'Prestige', 'Technologie avancée'],
