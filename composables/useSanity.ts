@@ -2,7 +2,7 @@ import { createClient } from '@sanity/client'
 import imageUrlBuilder from '@sanity/image-url'
 
 const client = createClient({
-  projectId: import.meta.env.VITE_SANITY_PROJECT_ID || '',
+  projectId: 'ztwm4can',
   dataset: 'production',
   useCdn: true,
   apiVersion: '2026-01-01',

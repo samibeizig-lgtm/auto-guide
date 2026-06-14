@@ -6,7 +6,7 @@ import { schemaTypes } from './schemas'
 export default defineConfig({
   name: 'tunisiamotors',
   title: 'Tunisiamotors.com — Administration',
-  projectId: process.env.SANITY_PROJECT_ID || '',
+  projectId: 'ztwm4can',
   dataset: 'production',
   plugins: [
     structureTool({
