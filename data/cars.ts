@@ -36,6 +36,20 @@ export interface Car {
   driveType?: string
   // Options disponibles
   options?: string[]
+  // Équipements par catégorie
+  equipmentCategories?: {
+    label: string
+    icon: string
+    items: string[]
+  }[]
+  // Infos supplémentaires
+  warranty?: string
+  warrantyBattery?: string
+  fiscalPower?: number
+  consumptionUrban?: number
+  consumptionExtraUrban?: number
+  gears?: number
+  cylinders?: number
 }
 
 export const cars: Car[] = [
@@ -1031,6 +1045,148 @@ export const cars: Car[] = [
     cons: ['Finition moyenne', 'Motorisation basique'],
     rating: 3.9,
     available: true,
+  },
+  {
+    id: 43,
+    brand: 'BMW',
+    model: 'i5 eDrive40',
+    year: 2026,
+    price: 322900,
+    category: 'Berline',
+    fuel: 'Électrique',
+    transmission: 'Automatique',
+    power: 340,
+    torque: 400,
+    engine: 'Moteur électrique 83.9 kWh',
+    displacement: 0,
+    consumption: 15.9,
+    seats: 5,
+    doors: 4,
+    image: '/cars/bmw-serie1.webp',
+    description: 'Le BMW i5 eDrive40 Pack M Plus 2026 est la berline électrique de luxe la plus aboutie du marché tunisien. Avec 560 km d\'autonomie, une recharge DC en 30 minutes et un intérieur d\'exception, il redéfinit le standard du premium électrique.',
+    features: ['340 ch', '560 km autonomie', 'Recharge 30 min DC', 'Écran 14.9"', 'Climatisation 4 zones'],
+    pros: [
+      'Autonomie 560 km — la plus élevée du marché',
+      'Recharge rapide DC en 30 min (20→80%)',
+      'Conduite autonome niveau 2',
+      'Finition et matériaux exceptionnels',
+      'Garantie 5 ans + batterie 8 ans',
+    ],
+    cons: [
+      'Prix très élevé (322 900 TND)',
+      'Infrastructure de recharge DC limitée en Tunisie',
+      'Poids élevé lié à la batterie',
+    ],
+    rating: 4.8,
+    available: true,
+    // Dimensions
+    length: 5060,
+    width: 1900,
+    height: 1515,
+    trunkVolume: 490,
+    // Performances
+    acceleration: 6.0,
+    topSpeed: 195,
+    driveType: 'Propulsion (RWD)',
+    // Infos supplémentaires
+    warranty: '5 ans (2+3)',
+    warrantyBattery: '8 ans',
+    fiscalPower: 7,
+    // Équipements par catégorie
+    equipmentCategories: [
+      {
+        label: 'Sécurité active',
+        icon: 'shield',
+        items: [
+          'ABS + Anti-patinage + Assistance freinage (AFU)',
+          'Airbags frontaux, latéraux et rideaux',
+          'Alerte franchissement de ligne',
+          'Alerte risque collision (FCW)',
+          'Freinage automatique anti-collision',
+          'Détection des piétons',
+          'Surveillance angle mort',
+          'Alerte circulation transversale',
+          'Détecteur de fatigue',
+          'Contrôle pression pneus',
+          'Fixations ISOFIX',
+          'Anti-démarrage électronique',
+        ],
+      },
+      {
+        label: 'Aides à la conduite',
+        icon: 'car',
+        items: [
+          'Conduite autonome Niveau 2',
+          'Régulateur adaptatif ACC (Driving Assistant Professional)',
+          'Limiteur de vitesse',
+          'Assistant feux de route',
+          'Aide au démarrage en côte',
+          'Direction assistée électrique',
+        ],
+      },
+      {
+        label: 'Stationnement',
+        icon: 'parking',
+        items: [
+          'Caméra 360°',
+          'Radars avant et arrière',
+          'Park Assist Plus (stationnement automatique)',
+          'Coffre à ouverture/fermeture motorisées',
+        ],
+      },
+      {
+        label: 'Technologie & Connectivité',
+        icon: 'screen',
+        items: [
+          'Écran central tactile 14.9 pouces',
+          'Instrumentation digitale 12.3" (Live Cockpit Pro)',
+          'Affichage tête haute',
+          'Android Auto & Apple CarPlay',
+          'Navigation GPS intégrée',
+          'Connected Drive (eSim, Teleservices, Connected+ Unlimited)',
+          'Commande vocale',
+          'Chargeur sans fil',
+          'USB-C',
+          'Bluetooth',
+        ],
+      },
+      {
+        label: 'Son & Divertissement',
+        icon: 'sound',
+        items: [
+          'Système audio Harman/Kardon',
+          '12 haut-parleurs',
+        ],
+      },
+      {
+        label: 'Confort & Habitacle',
+        icon: 'seat',
+        items: [
+          'Sièges en Veganza perforé',
+          'Sièges électriques, ventilés, réglage lombaire, mémoire',
+          'Climatisation automatique 4 zones',
+          'Toit panoramique en verre',
+          'Volant cuir M Sport',
+          'Vitres électriques AV/AR',
+          'Rétroviseurs électriques, rabattables, photosensibles',
+          'Frein de stationnement électrique',
+          'Accès mains libres (clé intelligente)',
+          'Modes de conduite : Sport, Relax, Expressive, Personal, Efficient',
+        ],
+      },
+      {
+        label: 'Extérieur & Design',
+        icon: 'design',
+        items: [
+          'Pack M Sport (kit carrosserie)',
+          'Jantes 20 pouces bi-ton',
+          'Phares Full LED adaptatifs',
+          'Calandre BMW Iconic Glow',
+          'Peinture métallisée',
+          'Train roulant Sport M',
+        ],
+      },
+    ],
   },
 ]
 
