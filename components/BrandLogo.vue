@@ -21,6 +21,7 @@
 const props = defineProps<{
   brand: string
   brandColor?: string
+  sanityLogo?: string  // URL logo depuis Sanity (prioritaire)
 }>()
 
 const failed = ref(false)
@@ -50,5 +51,5 @@ const logoMap: Record<string, string> = {
   Chevrolet:  '/logos/chevrolet.png',
 }
 
-const logoUrl = computed(() => logoMap[props.brand] ?? '')
+const logoUrl = computed(() => props.sanityLogo ?? logoMap[props.brand] ?? '')
 </script>

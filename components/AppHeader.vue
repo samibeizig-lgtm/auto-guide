@@ -81,7 +81,7 @@ const goSearch = () => {
 }
 
 const navLinks = [
-  { to: '/catalogue', label: 'Catalogue' },
+  { to: '/voitures-neuves', label: 'Voitures neuves' },
   { to: '/recherche', label: 'Recherche' },
   { to: '/prix', label: 'Prix & Cotes' },
   { to: '/credit', label: 'Crédit auto' },

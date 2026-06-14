@@ -20,11 +20,6 @@
 
           <!-- Texte gauche -->
           <div>
-            <div class="inline-flex items-center gap-2 bg-orange-50 border border-orange-100 text-orange-600 text-xs font-semibold px-3 py-1.5 rounded-full mb-8 tracking-wide uppercase">
-              <span class="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
-              Catalogue 2026
-            </div>
-
             <h1 class="text-5xl md:text-6xl xl:text-7xl font-black text-gray-950 leading-[1.05] tracking-tight mb-6">
               Le guide auto<br />
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">de référence</span><br />
@@ -36,7 +31,7 @@
             </p>
 
             <div class="flex flex-col sm:flex-row gap-3">
-              <NuxtLink to="/catalogue"
+              <NuxtLink to="/voitures-neuves"
                 class="inline-flex items-center justify-center gap-2 bg-gray-950 hover:bg-gray-800 text-white font-semibold px-6 py-3.5 rounded-2xl transition-all duration-200 active:scale-95">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                 Voir le catalogue
@@ -91,7 +86,7 @@
                 </div>
                 <div class="flex items-center justify-between">
                   <p class="text-orange-400 font-black text-xl">385 000 TND</p>
-                  <NuxtLink to="/catalogue" class="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-xl font-medium transition-colors">Voir →</NuxtLink>
+                  <NuxtLink to="/voitures-neuves" class="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-xl font-medium transition-colors">Voir →</NuxtLink>
                 </div>
               </div>
             </div>
@@ -120,19 +115,21 @@
     </section>
 
     <!-- ===== BANDE MARQUES ===== -->
-    <section class="bg-gray-950 py-8 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 mb-5">
+    <section class="bg-gray-950 py-10 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 mb-6">
         <p class="text-gray-500 text-xs font-semibold uppercase tracking-widest">Marques disponibles</p>
       </div>
-      <div class="flex gap-10 items-center px-8 overflow-x-auto pb-2">
-        <div v-for="b in brandList" :key="b.name"
-          class="flex-shrink-0 flex flex-col items-center gap-2 opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
-          @click="$router.push('/catalogue')">
-          <div class="w-10 h-10">
-            <BrandLogo :brand="b.name" :brand-color="b.color" />
+      <div class="flex gap-5 items-center px-8 overflow-x-auto pb-2">
+        <NuxtLink
+          v-for="b in brandList" :key="b.name"
+          to="/voitures-neuves"
+          class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+          <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center p-2 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition-all duration-200">
+            <img v-if="b.logo" :src="b.logo" :alt="b.name" class="w-full h-full object-contain" />
+            <BrandLogo v-else :brand="b.name" :brand-color="b.color" />
           </div>
-          <span class="text-white text-[10px] font-medium">{{ b.name }}</span>
-        </div>
+          <span class="text-gray-400 group-hover:text-white text-[10px] font-medium transition-colors">{{ b.name }}</span>
+        </NuxtLink>
       </div>
     </section>
 
@@ -144,7 +141,7 @@
             <p class="text-orange-500 font-semibold text-xs tracking-widest uppercase mb-2">Sélection</p>
             <h2 class="text-3xl font-black text-gray-950 tracking-tight">Modèles les mieux notés</h2>
           </div>
-          <NuxtLink to="/catalogue" class="hidden md:flex items-center gap-1 text-sm font-semibold text-gray-500 hover:text-gray-900 group">
+          <NuxtLink to="/voitures-neuves" class="hidden md:flex items-center gap-1 text-sm font-semibold text-gray-500 hover:text-gray-900 group">
             Tout voir
             <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </NuxtLink>
@@ -158,9 +155,10 @@
           >
             <div class="aspect-[4/3] overflow-hidden bg-gray-100">
               <img
-                :src="car.mainImage ?? `/cars/${car._id?.replace('car-', '')}.webp`"
+                :src="car.mainImage ?? carFallbackImage(car)"
                 :alt="`${car.brand} ${car.model}`"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                @error="(e: any) => e.target.src = carFallbackImage(car)"
               />
             </div>
             <div class="p-4">
@@ -300,9 +298,10 @@ const topCars = computed(() =>
 const latestArticles = computed(() => (allArticles.value ?? []).slice(0, 3))
 
 const brandList = computed(() =>
-  (allBrands.value ?? []).slice(0, 14).map((b: any) => ({
+  (allBrands.value ?? []).slice(0, 16).map((b: any) => ({
     name: b.name,
     color: b.color ?? brandData[b.name]?.color ?? '#374151',
+    logo: b.logo ?? null,
   }))
 )
 
@@ -323,4 +322,30 @@ const categoryCards = computed(() => {
 })
 
 const formatPrice = (p: number) => `${p?.toLocaleString('fr-TN')} TND`
+
+// Photos par marque (Unsplash) pour les modèles sans photo dans Sanity
+const brandPhotoMap: Record<string, string> = {
+  BMW: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80',
+  Mercedes: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600&q=80',
+  Audi: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&q=80',
+  Toyota: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600&q=80',
+  Volkswagen: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=600&q=80',
+  Hyundai: 'https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&q=80',
+  Kia: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&q=80',
+  Renault: 'https://images.unsplash.com/photo-1471444928139-48c5bf5173f8?w=600&q=80',
+  Peugeot: 'https://images.unsplash.com/photo-1619682817481-e994891cd1f5?w=600&q=80',
+  Dacia: 'https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=600&q=80',
+  Citroën: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=600&q=80',
+  BYD: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=600&q=80',
+  MG: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600&q=80',
+  Chery: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&q=80',
+  Suzuki: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&q=80',
+}
+
+const carFallbackImage = (car: any) => {
+  if (brandPhotoMap[car.brand]) return brandPhotoMap[car.brand]
+  if (car.category === 'SUV') return 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&q=80'
+  if (car.category === 'Berline') return 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=80'
+  return 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600&q=80'
+}
 </script>
