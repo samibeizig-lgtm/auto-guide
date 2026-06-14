@@ -139,7 +139,7 @@
           <NuxtLink
             v-for="car in filteredCars"
             :key="car._id"
-            :to="`/catalogue/${car._id}`"
+            :to="`/voitures-neuves/${car._id}`"
             class="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-200"
           >
             <div class="relative aspect-[4/3] bg-gray-50 overflow-hidden">

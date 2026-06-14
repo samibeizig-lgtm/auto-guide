@@ -110,6 +110,11 @@ export const car = defineType({
     defineField({ name: 'wheelSize', title: 'Jantes (pouces)', type: 'string', group: 'equipment' }),
     defineField({ name: 'sportKit', title: 'Kit Sport / M Sport', type: 'boolean', group: 'equipment' }),
 
+    // ── BADGES ──
+    defineField({ name: 'badges', title: 'Badges / Étiquettes', type: 'array', group: 'general',
+      of: [{ type: 'string' }],
+      options: { list: ['Nouveau', 'Baisse de prix', 'Promo', 'Best-seller', 'Stock limité', 'Coup de cœur', 'Exclusivité'] } }),
+
     // ── PHOTOS ──
     defineField({ name: 'mainImage', title: 'Photo principale', type: 'image', group: 'media',
       options: { hotspot: true } }),

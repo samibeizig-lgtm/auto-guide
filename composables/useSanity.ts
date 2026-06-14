@@ -23,7 +23,7 @@ export const fetchCars = () =>
     consumptionUrban, consumptionExtraUrban, emissions, range,
     acceleration, topSpeed, seats, doors, driveType, warranty, warrantyBattery,
     length, width, height, wheelbase, weight, trunkVolume, trunkVolumeMax,
-    rating, available, description, features, options, pros, cons,
+    badges, rating, available, description, features, options, pros, cons,
     abs, esp, isofix, tpms, airbags, accAdaptive, lka, aebs, bsd,
     fatigueDetect, autonomousLevel, cameraRear, camera360, parkingSensors,
     parkAssist, touchscreen, digitalCluster, hud, gps, androidAuto,

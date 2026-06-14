@@ -48,7 +48,7 @@
         <NuxtLink
           v-for="car in brandCars"
           :key="car.id"
-          :to="`/catalogue/${car._id}`"
+          :to="`/voitures-neuves/${car._id}`"
           class="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-200"
         >
           <div class="relative aspect-[4/3] bg-gray-50 overflow-hidden">
@@ -61,6 +61,15 @@
               class="absolute top-2 right-2 text-[10px] font-bold px-2 py-0.5 rounded-full"
               :class="fuelClass(car.fuel)"
             >{{ car.fuel }}</span>
+            <!-- Badges promotionnels -->
+            <div v-if="car.badges && car.badges.length" class="absolute top-2 left-2 flex flex-col gap-1">
+              <span
+                v-for="badge in car.badges.slice(0, 2)"
+                :key="badge"
+                class="text-[9px] font-bold px-2 py-0.5 rounded-full"
+                :class="badgeStyle(badge)"
+              >{{ badge }}</span>
+            </div>
           </div>
 
           <div class="p-3">
@@ -120,4 +129,17 @@ const fuelClass = (fuel: string) => ({
   'bg-orange-500 text-white': fuel === 'Essence',
   'bg-gray-700 text-white': fuel === 'Diesel',
 })
+
+const badgeStyle = (badge: string) => {
+  const map: Record<string, string> = {
+    'Nouveau': 'bg-blue-500 text-white',
+    'Baisse de prix': 'bg-green-500 text-white',
+    'Promo': 'bg-red-500 text-white',
+    'Best-seller': 'bg-amber-500 text-white',
+    'Stock limité': 'bg-orange-500 text-white',
+    'Coup de cœur': 'bg-pink-500 text-white',
+    'Exclusivité': 'bg-purple-600 text-white',
+  }
+  return map[badge] ?? 'bg-gray-700 text-white'
+}
 </script>

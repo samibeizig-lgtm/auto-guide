@@ -34,7 +34,7 @@
               <NuxtLink to="/voitures-neuves"
                 class="inline-flex items-center justify-center gap-2 bg-gray-950 hover:bg-gray-800 text-white font-semibold px-6 py-3.5 rounded-2xl transition-all duration-200 active:scale-95">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-                Voir le catalogue
+                Voitures neuves
               </NuxtLink>
               <NuxtLink to="/recherche"
                 class="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-400 text-gray-700 font-semibold px-6 py-3.5 rounded-2xl transition-all duration-200 active:scale-95 bg-white">
@@ -150,7 +150,7 @@
           <NuxtLink
             v-for="car in topCars"
             :key="car._id"
-            :to="`/catalogue/${car._id}`"
+            :to="`/voitures-neuves/${car._id}`"
             class="group bg-gray-50 hover:bg-white border border-transparent hover:border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300"
           >
             <div class="aspect-[4/3] overflow-hidden bg-gray-100">

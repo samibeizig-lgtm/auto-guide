@@ -86,6 +86,7 @@ const navLinks = [
   { to: '/prix', label: 'Prix & Cotes' },
   { to: '/credit', label: 'Crédit auto' },
   { to: '/actualites', label: 'Actualités' },
+  { to: '/informations-utiles', label: 'Infos utiles' },
 ]
 </script>
 
