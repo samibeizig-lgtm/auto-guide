@@ -58,7 +58,7 @@
 
         <div class="flex gap-3">
           <NuxtLink :to="`/comparateur?ids=${car._id}`" class="btn-primary flex-1 text-center text-sm py-2.5">Comparer</NuxtLink>
-          <NuxtLink :to="`/credit?prix=${car.price}`" class="flex-1 text-center text-sm py-2.5 rounded-xl border border-primary-500 text-primary-600 font-semibold hover:bg-primary-50 transition-colors">Simuler crédit</NuxtLink>
+          <NuxtLink :to="creditUrl" class="flex-1 text-center text-sm py-2.5 rounded-xl border border-primary-500 text-primary-600 font-semibold hover:bg-primary-50 transition-colors">Simuler crédit</NuxtLink>
         </div>
       </div>
     </div>
@@ -195,14 +195,29 @@
 import { fetchCars } from '~/composables/useSanity'
 
 const route = useRoute()
-const allCars = await fetchCars()
-const car = computed(() => allCars.find((c: any) => c._id === route.params.id))
+const { data: allCars } = await useAsyncData('cars', () => fetchCars())
+const car = computed(() => (allCars.value ?? []).find((c: any) => c._id === route.params.id))
 
 useHead(() => ({
   title: car.value ? `${car.value.brand} ${car.value.model} ${car.value.year} - Tunisiamotors.com` : 'Tunisiamotors.com',
 }))
 
 const formatPrice = (p: number) => `${p.toLocaleString('fr-TN')} TND`
+
+// Règles de financement selon puissance fiscale
+const maxFinancementPct = computed(() => {
+  const cv = car.value?.fiscalPower ?? 0
+  if (cv <= 4) return 80
+  if (cv <= 8) return 60
+  return 30
+})
+
+const creditUrl = computed(() => {
+  if (!car.value) return '/credit'
+  const prix = car.value.price ?? 0
+  const apport = Math.round(prix * (1 - maxFinancementPct.value / 100))
+  return `/credit?prix=${prix}&apport=${apport}&cv=${car.value.fiscalPower ?? 0}`
+})
 
 const fuelBadge = computed(() => ({
   'bg-green-500': car.value?.fuel === 'Hybride',
@@ -283,7 +298,7 @@ const categoryIcon = (icon: string) => {
 }
 
 const similarCars = computed(() => car.value
-  ? allCars.filter((c: any) => c._id !== car.value!._id && c.category === car.value!.category).slice(0, 4)
+  ? (allCars.value ?? []).filter((c: any) => c._id !== car.value!._id && c.category === car.value!.category).slice(0, 4)
   : []
 )
 </script>

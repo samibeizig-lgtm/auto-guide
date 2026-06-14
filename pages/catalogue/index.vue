@@ -88,25 +88,26 @@
 </template>
 
 <script setup lang="ts">
-import { fetchBrands, fetchCars, sanityImage } from '~/composables/useSanity'
+import { fetchBrands, fetchCars } from '~/composables/useSanity'
 
 useHead({ title: 'Catalogue - Tunisiamotors.com' })
 
-const [allBrands, allCars] = await Promise.all([fetchBrands(), fetchCars()])
+const { data: allBrands } = await useAsyncData('brands', () => fetchBrands())
+const { data: allCars } = await useAsyncData('cars', () => fetchCars())
 
 const selectedBrand = ref<string | null>(null)
 
 const brandList = computed(() =>
-  allBrands.map((b: any) => ({
+  (allBrands.value ?? []).map((b: any) => ({
     name: b.name,
     color: b.color ?? '#374151',
     logo: b.logo ?? null,
-    count: allCars.filter((c: any) => c.brand === b.name).length,
-  })).filter((b: any) => b.count > 0 || true)
+    count: (allCars.value ?? []).filter((c: any) => c.brand === b.name).length,
+  }))
 )
 
 const brandCars = computed(() =>
-  selectedBrand.value ? allCars.filter((c: any) => c.brand === selectedBrand.value) : []
+  selectedBrand.value ? (allCars.value ?? []).filter((c: any) => c.brand === selectedBrand.value) : []
 )
 
 const carImage = (car: any) => car.mainImage ?? `/cars/${car._id?.replace('car-', '')}.webp`

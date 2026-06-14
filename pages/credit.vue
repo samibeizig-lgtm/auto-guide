@@ -37,7 +37,15 @@
               class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary-400 focus:border-transparent"
               placeholder="ex: 20 000"
             />
-            <p class="text-xs text-gray-400 mt-1">{{ apportPct }}% du prix</p>
+            <p class="text-xs text-gray-400 mt-1">{{ apportPct }}% du prix · max financé {{ 100 - apportPct }}%</p>
+          </div>
+
+          <!-- Règle selon CV -->
+          <div v-if="regleLabel" class="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-xl px-3 py-2.5">
+            <svg class="w-4 h-4 text-amber-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <p class="text-xs text-amber-700">{{ regleLabel }}</p>
           </div>
         </div>
 
@@ -206,11 +214,25 @@ useHead({ title: 'Calculateur de crédit auto - Tunisiamotors.com' })
 
 const route = useRoute()
 
+const cv = Number(route.query.cv) || 0
+const maxFinancementPct = cv <= 4 ? 80 : cv <= 8 ? 60 : cv > 0 ? 30 : 80
+
 const prix = ref(Number(route.query.prix) || 100000)
-const apport = ref(Number(route.query.apport) || 20000)
+const apport = ref(
+  route.query.apport
+    ? Number(route.query.apport)
+    : Math.round((Number(route.query.prix) || 100000) * (1 - maxFinancementPct / 100))
+)
 const duree = ref(60)
 const taux = ref(9)
 const showTable = ref(false)
+
+const regleLabel = computed(() => {
+  if (!route.query.cv) return null
+  if (cv <= 4) return `Véhicule ≤ 4 CV : financement jusqu'à 80% autorisé`
+  if (cv <= 8) return `Véhicule ${cv} CV (5-8 CV) : financement jusqu'à 60% autorisé`
+  return `Véhicule ${cv} CV (≥ 9 CV) : financement jusqu'à 30% autorisé`
+})
 
 const tauxPresets = [
   { label: 'BNA 8.5%', value: 8.5 },
