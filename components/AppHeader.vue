@@ -60,6 +60,7 @@ const menuOpen = ref(false)
 const navLinks = [
   { to: '/catalogue', label: 'Catalogue' },
   { to: '/prix', label: 'Prix & Cotes' },
+  { to: '/credit', label: 'Crédit auto' },
   { to: '/actualites', label: 'Actualités' },
 ]
 </script>

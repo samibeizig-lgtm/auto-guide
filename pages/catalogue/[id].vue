@@ -58,6 +58,7 @@
 
         <div class="flex gap-3">
           <NuxtLink :to="`/comparateur?ids=${car._id}`" class="btn-primary flex-1 text-center text-sm py-2.5">Comparer</NuxtLink>
+          <NuxtLink :to="`/credit?prix=${car.price}`" class="flex-1 text-center text-sm py-2.5 rounded-xl border border-primary-500 text-primary-600 font-semibold hover:bg-primary-50 transition-colors">Simuler crédit</NuxtLink>
         </div>
       </div>
     </div>
