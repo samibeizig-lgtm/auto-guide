@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - claude/dreamy-tesla-3kzs5g
 
 jobs:
   deploy-site:
