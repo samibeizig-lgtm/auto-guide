@@ -34,17 +34,20 @@ const logoMap: Record<string, string> = {
   Kia:        '/logos/kia.svg',
   Peugeot:    '/logos/peugeot.svg',
   Suzuki:     '/logos/suzuki.svg',
-  Chery:      '/logos/chery.svg',
+  Chery:      '/logos/chery.png',
   MG:         '/logos/mg.svg',
   Fiat:       '/logos/fiat.svg',
   Seat:       '/logos/seat.svg',
   Skoda:      '/logos/skoda.svg',
   Ford:       '/logos/ford.svg',
   BMW:        '/logos/bmw.png',
-  Mercedes:   '/logos/mercedes.svg',
+  Mercedes:   '/logos/mercedes.png',
   Nissan:     '/logos/nissan.svg',
   Mitsubishi: '/logos/mitsubishi.svg',
   BYD:        '/logos/byd.png',
+  Audi:       '/logos/audi.png',
+  Citroën:    '/logos/citroen.png',
+  Chevrolet:  '/logos/chevrolet.png',
 }
 
 const logoUrl = computed(() => logoMap[props.brand] ?? '')

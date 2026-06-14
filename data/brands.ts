@@ -118,6 +118,24 @@ export const brandData: Record<string, Brand> = {
     name: 'BYD',
     logo: 'https://logo.clearbit.com/byd.com',
     country: 'Chine',
-    color: '#1DB954',
+    color: '#E2001A',
+  },
+  Audi: {
+    name: 'Audi',
+    logo: '/logos/audi.png',
+    country: 'Allemagne',
+    color: '#BB0A14',
+  },
+  'Citroën': {
+    name: 'Citroën',
+    logo: '/logos/citroen.png',
+    country: 'France',
+    color: '#333333',
+  },
+  Chevrolet: {
+    name: 'Chevrolet',
+    logo: '/logos/chevrolet.png',
+    country: 'USA',
+    color: '#D4A017',
   },
 }
