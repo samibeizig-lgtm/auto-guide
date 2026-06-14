@@ -100,10 +100,12 @@
           <!-- Prix estimé -->
           <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 text-white">
             <div class="flex items-center gap-3 mb-4">
-              <img :src="estimation.car.mainImage ?? `/cars/${estimation.car._id?.replace('car-', '')}.webp`"
-                :alt="estimation.car.model" class="w-16 h-12 object-cover rounded-lg" />
+              <img v-if="estimation.image" :src="estimation.image" :alt="estimation.model" class="w-16 h-12 object-cover rounded-lg" />
+              <div class="w-16 h-12 bg-white/10 rounded-lg flex items-center justify-center" v-else>
+                <svg class="w-8 h-8 text-white/30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0zM3 9l1-5h16l1 5M3 9h18M3 9l-1 4h20l-1-4"/></svg>
+              </div>
               <div>
-                <p class="font-bold text-lg">{{ estimation.car.brand }} {{ estimation.car.model }}</p>
+                <p class="font-bold text-lg">{{ estimation.brand }} {{ estimation.model }}</p>
                 <p class="text-gray-400 text-sm">{{ selectedYear }} · {{ kilometrage.toLocaleString('fr-TN') }} km · {{ etatLabel }}</p>
               </div>
             </div>
@@ -128,7 +130,7 @@
             <h3 class="font-semibold text-gray-800 text-sm">Détail de l'estimation</h3>
             <div class="flex justify-between items-center py-2 border-b border-gray-50">
               <span class="text-sm text-gray-600">Prix neuf (2026)</span>
-              <span class="font-semibold">{{ formatPrice(estimation.car.price) }}</span>
+              <span class="font-semibold">{{ formatPrice(estimation.priceNeuf) }}</span>
             </div>
             <div class="flex justify-between items-center py-2 border-b border-gray-50">
               <span class="text-sm text-gray-600">Dépréciation annuelle ({{ ageVehicule }} an{{ ageVehicule > 1 ? 's' : '' }})</span>
@@ -156,11 +158,11 @@
           <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
             <div class="flex justify-between text-xs text-gray-500 mb-2">
               <span>Valeur résiduelle</span>
-              <span class="font-semibold text-primary-600">{{ Math.round((estimation.mid / estimation.car.price) * 100) }}%</span>
+              <span class="font-semibold text-primary-600">{{ Math.round((estimation.mid / estimation.priceNeuf) * 100) }}%</span>
             </div>
             <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
               <div class="h-full bg-gradient-to-r from-primary-500 to-orange-400 rounded-full transition-all duration-700"
-                :style="{ width: Math.round((estimation.mid / estimation.car.price) * 100) + '%' }" />
+                :style="{ width: Math.round((estimation.mid / estimation.priceNeuf) * 100) + '%' }" />
             </div>
             <div class="flex justify-between text-xs text-gray-400 mt-1">
               <span>0%</span>
@@ -168,8 +170,15 @@
             </div>
           </div>
 
+          <!-- Lien annonces réelles -->
+          <a :href="annoncesUrl" target="_blank" rel="noopener"
+            class="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl border border-primary-500 text-primary-600 font-semibold text-sm hover:bg-primary-50 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            Voir les annonces sur tayara.tn
+          </a>
+
           <p class="text-xs text-gray-400 leading-relaxed">
-            * Estimation basée sur les prix 2026, la dépréciation moyenne du marché tunisien et l'état déclaré. Prix réel peut varier selon l'historique d'entretien, les options et la demande locale.
+            * Estimation basée sur les prix de référence 2024-2026 et la dépréciation moyenne du marché tunisien. Prix réel peut varier selon l'historique d'entretien, les options et la demande locale.
           </p>
 
         </template>
@@ -192,20 +201,20 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-50">
-              <tr v-for="car in allCars" :key="car._id" class="hover:bg-gray-50 transition-colors">
+              <tr v-for="car in tableRef" :key="`${car.brand}-${car.model}`" class="hover:bg-gray-50 transition-colors">
                 <td class="px-5 py-3">
                   <p class="font-semibold text-gray-900">{{ car.brand }} {{ car.model }}</p>
-                  <p class="text-xs text-gray-400">{{ car.year }} · {{ car.category }}</p>
+                  <p class="text-xs text-gray-400">{{ car.category }} · {{ car.years[car.years.length-1] }}–{{ car.years[0] }}</p>
                 </td>
                 <td class="px-4 py-3 text-center">
                   <span class="text-xs font-medium px-2 py-0.5 rounded-full"
-                    :class="car.fuel === 'Hybride' ? 'bg-green-100 text-green-700' : car.fuel === 'Électrique' ? 'bg-blue-100 text-blue-700' : car.fuel === 'Diesel' ? 'bg-gray-100 text-gray-600' : 'bg-orange-100 text-orange-700'">
-                    {{ car.fuel }}
+                    :class="car.category === 'Électrique' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'">
+                    {{ car.category === 'Électrique' ? 'Électrique' : 'Thermique' }}
                   </span>
                 </td>
-                <td class="px-4 py-3 text-right font-bold text-primary-600">{{ formatPrice(car.price) }}</td>
-                <td class="px-4 py-3 text-right text-gray-600">{{ formatPrice(estimateCote(car.price, 3, 60000, 'bon')) }}</td>
-                <td class="px-4 py-3 text-right text-gray-600">{{ formatPrice(estimateCote(car.price, 5, 100000, 'bon')) }}</td>
+                <td class="px-4 py-3 text-right font-bold text-primary-600">{{ formatPrice(car.priceRef) }}</td>
+                <td class="px-4 py-3 text-right text-gray-600">{{ formatPrice(estimateCote(car.priceRef, 3, 60000, 'bon')) }}</td>
+                <td class="px-4 py-3 text-right text-gray-600">{{ formatPrice(estimateCote(car.priceRef, 5, 100000, 'bon')) }}</td>
               </tr>
             </tbody>
           </table>
@@ -217,11 +226,12 @@
 </template>
 
 <script setup lang="ts">
+import { usedCarsReference, usedCarBrands, getModelsForBrand, getCarRef } from '~/data/used-cars-reference'
 import { fetchCars } from '~/composables/useSanity'
 
 useHead({ title: 'Prix & Cotes - Tunisiamotors.com' })
 
-const { data: allCars } = await useAsyncData('cars', () => fetchCars())
+const { data: sanityCars } = await useAsyncData('cars', () => fetchCars())
 
 const selectedBrand = ref('')
 const selectedModel = ref('')
@@ -238,25 +248,16 @@ const etats = [
 const etatLabel = computed(() => etats.find(e => e.value === etat.value)?.label ?? '')
 const currentYear = new Date().getFullYear()
 
-const availableBrands = computed(() =>
-  [...new Set((allCars.value ?? []).map((c: any) => c.brand))].filter(Boolean).sort()
-)
-const availableModels = computed(() =>
-  (allCars.value ?? [])
-    .filter((c: any) => c.brand === selectedBrand.value)
-    .map((c: any) => c.model)
-    .sort()
-)
+const availableBrands = computed(() => usedCarBrands)
+const availableModels = computed(() => selectedBrand.value ? getModelsForBrand(selectedBrand.value) : [])
 const availableYears = computed(() => {
-  const baseYear = (allCars.value ?? []).find((c: any) => c.brand === selectedBrand.value && c.model === selectedModel.value)?.year ?? currentYear
-  const years = []
-  for (let y = currentYear; y >= Math.max(baseYear - 1, currentYear - 15); y--) years.push(y)
-  return years
+  if (!selectedBrand.value || !selectedModel.value) return []
+  const ref = getCarRef(selectedBrand.value, selectedModel.value)
+  return ref ? ref.years.slice().sort((a, b) => b - a) : []
 })
 
 const ageVehicule = computed(() => selectedYear.value ? Math.max(0, currentYear - selectedYear.value) : 0)
 
-// Taux de dépréciation annuelle (marché tunisien)
 const depreciationRate = (age: number) => {
   if (age <= 0) return 0
   let total = 0
@@ -271,11 +272,8 @@ const depreciationRate = (age: number) => {
 }
 
 const estimateCote = (priceNeuf: number, age: number, km: number, state: string) => {
-  const avgKmPerYear = 15000
-  const expectedKm = age * avgKmPerYear
-  const kmDiff = km - expectedKm
+  const kmDiff = km - age * 15000
   const kmRate = (kmDiff / 5000) * 0.005
-
   const stateBonus: Record<string, number> = { excellent: 0.05, bon: 0, correct: -0.07 }
   const base = priceNeuf * (1 - depreciationRate(age))
   const afterKm = base * (1 - kmRate)
@@ -283,13 +281,32 @@ const estimateCote = (priceNeuf: number, age: number, km: number, state: string)
   return Math.max(Math.round(afterState / 100) * 100, priceNeuf * 0.05)
 }
 
+// Prix de référence : Sanity en priorité, sinon dataset local
+const getRefPrice = (brand: string, model: string) => {
+  const sanity = (sanityCars.value ?? []).find((c: any) => c.brand === brand && c.model === model)
+  if (sanity?.price) return sanity.price
+  return getCarRef(brand, model)?.priceRef ?? 0
+}
+
+// Image depuis Sanity si dispo
+const getCarImage = (brand: string, model: string) => {
+  const sanity = (sanityCars.value ?? []).find((c: any) => c.brand === brand && c.model === model)
+  return sanity?.mainImage ?? null
+}
+
+// Lien annonces réelles
+const annoncesUrl = computed(() => {
+  if (!selectedBrand.value || !selectedModel.value) return 'https://www.autoprix.tn'
+  const q = encodeURIComponent(`${selectedBrand.value} ${selectedModel.value}`)
+  return `https://www.tayara.tn/ads/k/${q}`
+})
+
 const estimation = computed(() => {
   if (!selectedBrand.value || !selectedModel.value || !selectedYear.value) return null
-  const car = (allCars.value ?? []).find((c: any) => c.brand === selectedBrand.value && c.model === selectedModel.value)
-  if (!car || !car.price) return null
+  const priceNeuf = getRefPrice(selectedBrand.value, selectedModel.value)
+  if (!priceNeuf) return null
 
   const age = ageVehicule.value
-  const priceNeuf = car.price
   const avgKm = age * 15000
   const kmDiff = kilometrage.value - avgKm
   const stateBonus: Record<string, number> = { excellent: 0.05, bon: 0, correct: -0.07 }
@@ -297,21 +314,25 @@ const estimation = computed(() => {
   const base = priceNeuf * (1 - depreciationRate(age))
   const depreciationAge = priceNeuf - base
   const kmCorr = base * (kmDiff / 5000) * 0.005
-  const depreciationKm = Math.round(kmCorr)
   const stateVal = (base - kmCorr) * (stateBonus[etat.value] ?? 0)
-  const bonusEtat = Math.round(-stateVal)
   const mid = Math.max(Math.round((base - kmCorr + stateVal) / 100) * 100, priceNeuf * 0.05)
 
   return {
-    car,
+    brand: selectedBrand.value,
+    model: selectedModel.value,
+    image: getCarImage(selectedBrand.value, selectedModel.value),
+    priceNeuf,
     mid,
     low: Math.round(mid * 0.92 / 100) * 100,
     high: Math.round(mid * 1.08 / 100) * 100,
     depreciationAge: Math.round(depreciationAge),
-    depreciationKm,
-    bonusEtat,
+    depreciationKm: Math.round(kmCorr),
+    bonusEtat: Math.round(-stateVal),
   }
 })
+
+// Tableau de référence : utilise le dataset complet
+const tableRef = computed(() => usedCarsReference.slice().sort((a, b) => a.brand.localeCompare(b.brand)))
 
 const formatPrice = (p: number) => `${Math.round(p).toLocaleString('fr-TN')} TND`
 </script>
