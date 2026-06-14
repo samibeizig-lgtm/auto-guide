@@ -12,7 +12,7 @@
 
       <!-- Photo -->
       <div class="relative bg-gray-50 rounded-2xl overflow-hidden aspect-[4/3]">
-        <img :src="car.image" :alt="`${car.brand} ${car.model}`" class="w-full h-full object-cover" />
+        <img :src="car.mainImage ?? `/cars/${car._id?.replace('car-', '')}.webp`" :alt="`${car.brand} ${car.model}`" class="w-full h-full object-cover" />
         <div class="absolute top-3 left-3 flex gap-2">
           <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-white/90 text-gray-700 shadow">{{ car.category }}</span>
           <span class="text-xs font-semibold px-2.5 py-1 rounded-full text-white shadow" :class="fuelBadge">{{ car.fuel }}</span>
@@ -57,7 +57,7 @@
         </div>
 
         <div class="flex gap-3">
-          <NuxtLink :to="`/comparateur?ids=${car.id}`" class="btn-primary flex-1 text-center text-sm py-2.5">Comparer</NuxtLink>
+          <NuxtLink :to="`/comparateur?ids=${car._id}`" class="btn-primary flex-1 text-center text-sm py-2.5">Comparer</NuxtLink>
         </div>
       </div>
     </div>
@@ -170,10 +170,10 @@
     <div>
       <h2 class="text-lg font-bold text-gray-900 mb-4">Modèles similaires</h2>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <NuxtLink v-for="s in similarCars" :key="s.id" :to="`/catalogue/${s.id}`"
+        <NuxtLink v-for="s in similarCars" :key="s._id" :to="`/catalogue/${s._id}`"
           class="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-md transition-all">
           <div class="aspect-[4/3] bg-gray-50 overflow-hidden">
-            <img :src="s.image" :alt="`${s.brand} ${s.model}`" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <img :src="s.mainImage ?? `/cars/${s._id?.replace('car-', '')}.webp`" :alt="`${s.brand} ${s.model}`" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
           </div>
           <div class="p-3">
             <p class="text-xs font-bold text-gray-900 uppercase truncate">{{ s.brand }} {{ s.model }}</p>
@@ -191,10 +191,11 @@
 </template>
 
 <script setup lang="ts">
-import { cars } from '~/data/cars'
+import { fetchCars } from '~/composables/useSanity'
 
 const route = useRoute()
-const car = computed(() => cars.find(c => c.id === Number(route.params.id)))
+const allCars = await fetchCars()
+const car = computed(() => allCars.find((c: any) => c._id === route.params.id))
 
 useHead(() => ({
   title: car.value ? `${car.value.brand} ${car.value.model} ${car.value.year} - Tunisiamotors.com` : 'Tunisiamotors.com',
@@ -281,7 +282,7 @@ const categoryIcon = (icon: string) => {
 }
 
 const similarCars = computed(() => car.value
-  ? cars.filter(c => c.id !== car.value!.id && c.category === car.value!.category).slice(0, 4)
+  ? allCars.filter((c: any) => c._id !== car.value!._id && c.category === car.value!.category).slice(0, 4)
   : []
 )
 </script>

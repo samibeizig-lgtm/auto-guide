@@ -16,7 +16,8 @@
         class="flex flex-col items-center gap-2 p-4 rounded-2xl border border-gray-100 bg-white hover:border-primary-300 hover:shadow-md transition-all duration-200 group"
       >
         <div class="w-16 h-16 flex items-center justify-center">
-          <BrandLogo :brand="b.name" :brand-color="b.color" />
+          <img v-if="b.logo" :src="b.logo" :alt="b.name" class="w-full h-full object-contain" />
+          <BrandLogo v-else :brand="b.name" :brand-color="b.color" />
         </div>
         <span class="text-xs font-semibold text-gray-700 text-center leading-tight group-hover:text-primary-600">{{ b.name }}</span>
         <span class="text-xs text-gray-400">{{ b.count }} modèle{{ b.count > 1 ? 's' : '' }}</span>
@@ -47,12 +48,12 @@
         <NuxtLink
           v-for="car in brandCars"
           :key="car.id"
-          :to="`/catalogue/${car.id}`"
+          :to="`/catalogue/${car._id}`"
           class="group bg-white rounded-xl overflow-hidden border border-gray-100 hover:shadow-lg transition-all duration-200"
         >
           <div class="relative aspect-[4/3] bg-gray-50 overflow-hidden">
             <img
-              :src="car.image"
+              :src="carImage(car)"
               :alt="`${car.brand} ${car.model}`"
               class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
@@ -87,24 +88,28 @@
 </template>
 
 <script setup lang="ts">
-import { cars, brands } from '~/data/cars'
-import { brandData } from '~/data/brands'
+import { fetchBrands, fetchCars, sanityImage } from '~/composables/useSanity'
 
 useHead({ title: 'Catalogue - Tunisiamotors.com' })
+
+const [allBrands, allCars] = await Promise.all([fetchBrands(), fetchCars()])
 
 const selectedBrand = ref<string | null>(null)
 
 const brandList = computed(() =>
-  brands.map(name => ({
-    name,
-    count: cars.filter(c => c.brand === name).length,
-    color: brandData[name]?.color ?? '#374151',
-  }))
+  allBrands.map((b: any) => ({
+    name: b.name,
+    color: b.color ?? '#374151',
+    logo: b.logo ?? null,
+    count: allCars.filter((c: any) => c.brand === b.name).length,
+  })).filter((b: any) => b.count > 0 || true)
 )
 
 const brandCars = computed(() =>
-  selectedBrand.value ? cars.filter(c => c.brand === selectedBrand.value) : []
+  selectedBrand.value ? allCars.filter((c: any) => c.brand === selectedBrand.value) : []
 )
+
+const carImage = (car: any) => car.mainImage ?? `/cars/${car._id?.replace('car-', '')}.webp`
 
 const formatPrice = (price: number) => `${price.toLocaleString('fr-TN')} TND`
 
