@@ -19,7 +19,7 @@
         <div class="max-w-2xl">
           <div class="animate-fade-in-up flex items-center gap-2 mb-6">
             <div class="h-px w-8 bg-primary-500"></div>
-            <span class="text-primary-400 font-medium text-sm tracking-widest uppercase">Tunisie · 2024</span>
+            <span class="text-primary-400 font-medium text-sm tracking-widest uppercase">Tunisie · 2026</span>
           </div>
           <h1 class="animate-fade-in-up-delay-1 text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] mb-6">
             Trouvez la voiture<br />
@@ -163,7 +163,7 @@ const stats = [
   { value: '30+', label: 'Modèles référencés' },
   { value: '15+', label: 'Marques disponibles' },
   { value: '100%', label: 'Prix en TND' },
-  { value: '2024', label: 'Données actualisées' },
+  { value: '2026', label: 'Données actualisées' },
 ]
 
 const categoryCards = [

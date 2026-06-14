@@ -44,7 +44,7 @@ const logoMap: Record<string, string> = {
   Mercedes:   '/logos/mercedes.svg',
   Nissan:     '/logos/nissan.svg',
   Mitsubishi: '/logos/mitsubishi.svg',
-  BYD:        '/logos/byd.svg',
+  BYD:        '/logos/byd.png',
 }
 
 const logoUrl = computed(() => logoMap[props.brand] ?? '')
