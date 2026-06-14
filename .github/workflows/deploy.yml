@@ -41,6 +41,9 @@ jobs:
   deploy-studio:
     name: Deploy Sanity Studio
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sanity
     steps:
       - uses: actions/checkout@v4
 
@@ -48,13 +51,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Install Sanity dependencies
+        run: npm install
 
       - name: Deploy Sanity Studio
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
         run: npx sanity deploy --yes
-        working-directory: sanity
