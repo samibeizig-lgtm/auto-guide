@@ -30,9 +30,9 @@
           <thead class="bg-gray-50">
             <tr>
               <th class="py-3 px-4 text-left font-semibold text-gray-700">Puissance fiscale</th>
-              <th class="py-3 px-4 text-right font-semibold text-gray-700">Véhicule ≤ 10 ans</th>
-              <th class="py-3 px-4 text-right font-semibold text-gray-700">Véhicule 11–20 ans</th>
-              <th class="py-3 px-4 text-right font-semibold text-gray-700">Véhicule > 20 ans</th>
+              <th class="py-3 px-4 text-right font-semibold text-orange-600">Essence</th>
+              <th class="py-3 px-4 text-right font-semibold text-gray-700">Diesel</th>
+              <th class="py-3 px-4 text-right font-semibold text-blue-600">GPL</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-50">
@@ -43,14 +43,14 @@
                   {{ row.label }}
                 </span>
               </td>
-              <td class="py-3 px-4 text-right font-semibold text-gray-900">{{ row.new }} TND</td>
-              <td class="py-3 px-4 text-right text-gray-600">{{ row.old }} TND</td>
-              <td class="py-3 px-4 text-right text-green-600 font-medium">Exonéré</td>
+              <td class="py-3 px-4 text-right font-semibold text-gray-900">{{ row.essence }} TND</td>
+              <td class="py-3 px-4 text-right text-gray-700">{{ row.diesel }} TND</td>
+              <td class="py-3 px-4 text-right text-blue-700">{{ row.gpl }} TND</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="text-xs text-amber-600 mt-2 ml-1 font-medium">⚠️ Valeurs indicatives — veuillez vérifier les tarifs exacts auprès de la Direction Régionale du Transport (DRT) ou sur le site officiel du Ministère des Finances.</p>
+      <p class="text-xs text-gray-400 mt-2 ml-1">Source : Managers — Vignette 2026, personnes physiques.</p>
     </section>
 
     <!-- 2. Immatriculation (Carte grise) -->
@@ -203,15 +203,14 @@ const sections = [
 ]
 
 const vignetteTable = [
-  { cv: '≤4', label: '4 CV et moins',  new: 50,  old: 30 },
-  { cv: '5',  label: '5 CV',           new: 85,  old: 50 },
-  { cv: '6',  label: '6 CV',           new: 130, old: 80 },
-  { cv: '7',  label: '7 CV',           new: 180, old: 110 },
-  { cv: '8',  label: '8 CV',           new: 235, old: 140 },
-  { cv: '9',  label: '9 CV',           new: 295, old: 175 },
-  { cv: '10', label: '10 CV',          new: 360, old: 215 },
-  { cv: '11', label: '11 CV',          new: 440, old: 265 },
-  { cv: '≥12',label: '12 CV et plus',  new: 550, old: 330 },
+  { cv: '4',   label: '4 CV',          essence: 65,   diesel: 215,  gpl: 390  },
+  { cv: '5-7', label: '5 à 7 CV',      essence: 130,  diesel: 280,  gpl: 455  },
+  { cv: '8',   label: '8 CV',          essence: 180,  diesel: 330,  gpl: 505  },
+  { cv: '9',   label: '9 CV',          essence: 180,  diesel: 405,  gpl: 580  },
+  { cv: '10-11',label: '10 à 11 CV',   essence: 230,  diesel: 455,  gpl: 630  },
+  { cv: '12-13',label: '12 à 13 CV',   essence: 1050, diesel: 1275, gpl: 1450 },
+  { cv: '14-15',label: '14 à 15 CV',   essence: 1400, diesel: 1625, gpl: 1800 },
+  { cv: '≥16', label: '16 CV et plus', essence: 2100, diesel: 2323, gpl: 2500 },
 ]
 
 const immatriculationDocs = [
