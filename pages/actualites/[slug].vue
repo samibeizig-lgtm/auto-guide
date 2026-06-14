@@ -50,7 +50,7 @@ const route = useRoute()
 const article = computed(() => articles.find(a => a.slug === route.params.slug))
 
 useHead(() => ({
-  title: article.value ? `${article.value.title} - Guide Auto Tunisie` : 'Guide Auto Tunisie',
+  title: article.value ? `${article.value.title} - Tunisiamotors.com` : 'Tunisiamotors.com',
 }))
 
 const formatDate = (date: string) => new Date(date).toLocaleDateString('fr-TN', { day: 'numeric', month: 'long', year: 'numeric' })

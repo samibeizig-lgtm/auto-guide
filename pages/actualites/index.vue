@@ -53,7 +53,7 @@
 <script setup lang="ts">
 import { articles, articleCategories } from '~/data/news'
 
-useHead({ title: 'Actualités - Guide Auto Tunisie' })
+useHead({ title: 'Actualités - Tunisiamotors.com' })
 
 const activeCategory = ref('Tous')
 

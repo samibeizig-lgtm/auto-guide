@@ -154,7 +154,7 @@
 import { cars } from '~/data/cars'
 import { articles } from '~/data/news'
 
-useHead({ title: 'Guide Auto Tunisie - Prix, Catalogue et Comparateur de voitures' })
+useHead({ title: 'Tunisiamotors.com - Prix, Catalogue et Comparateur de voitures' })
 
 const topCars = cars.slice().sort((a, b) => b.rating - a.rating).slice(0, 4)
 const latestArticles = articles.slice(0, 3)

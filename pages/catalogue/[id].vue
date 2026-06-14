@@ -120,7 +120,7 @@ const route = useRoute()
 const car = computed(() => cars.find(c => c.id === Number(route.params.id)))
 
 useHead(() => ({
-  title: car.value ? `${car.value.brand} ${car.value.model} ${car.value.year} - Guide Auto Tunisie` : 'Guide Auto Tunisie',
+  title: car.value ? `${car.value.brand} ${car.value.model} ${car.value.year} - Tunisiamotors.com` : 'Tunisiamotors.com',
 }))
 
 const formatPrice = (p: number) => `${p.toLocaleString('fr-TN')} TND`

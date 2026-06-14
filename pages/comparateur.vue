@@ -115,7 +115,7 @@
 import { cars } from '~/data/cars'
 import type { Car } from '~/data/cars'
 
-useHead({ title: 'Comparateur - Guide Auto Tunisie' })
+useHead({ title: 'Comparateur - Tunisiamotors.com' })
 
 const route = useRoute()
 

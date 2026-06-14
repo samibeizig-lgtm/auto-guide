@@ -2,17 +2,8 @@
   <header class="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
-        <NuxtLink to="/" class="flex items-center gap-2.5 group">
-          <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center group-hover:bg-primary-500 transition-colors shadow-sm">
-            <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
-              <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h3.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-6a1 1 0 00-.293-.707l-3-3A1 1 0 0016 4H3z"/>
-            </svg>
-          </div>
-          <div>
-            <span class="font-bold text-lg leading-none text-gray-900">Guide Auto</span>
-            <span class="block text-xs font-medium text-primary-500 leading-none mt-0.5">Tunisie</span>
-          </div>
+        <NuxtLink to="/" class="flex items-center">
+          <img src="/logo-site.webp" alt="Tunisiamotors.com" class="h-8 w-auto" />
         </NuxtLink>
 
         <nav class="hidden md:flex items-center gap-1">

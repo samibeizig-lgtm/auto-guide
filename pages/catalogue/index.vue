@@ -115,7 +115,7 @@ import { cars, brands } from '~/data/cars'
 import { brandData } from '~/data/brands'
 import type { Car } from '~/data/cars'
 
-useHead({ title: 'Catalogue - Guide Auto Tunisie' })
+useHead({ title: 'Catalogue - Tunisiamotors.com' })
 
 const selectedBrand = ref<string | null>(null)
 const search = ref('')

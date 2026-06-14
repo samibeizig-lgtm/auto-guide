@@ -117,7 +117,7 @@
 <script setup lang="ts">
 import { cars, categories } from '~/data/cars'
 
-useHead({ title: 'Prix & Cotes des voitures - Guide Auto Tunisie' })
+useHead({ title: 'Prix & Cotes des voitures - Tunisiamotors.com' })
 
 const activeCategory = ref('Tous')
 
