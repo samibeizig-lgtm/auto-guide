@@ -215,7 +215,7 @@ const essentials = computed(() => {
   const items = [
     { label: 'Puissance', value: `${c.power} ch`, iconPath: 'M13 10V3L4 14h7v7l9-11h-7z' },
     { label: '0 – 100 km/h', value: c.acceleration ? `${c.acceleration} s` : '—', iconPath: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
-    { label: c.fuel === 'Électrique' ? 'Autonomie' : 'Consommation', value: c.fuel === 'Électrique' ? `~${Math.round(1000 / c.consumption)} km` : `${c.consumption} L/100km`, iconPath: 'M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h3.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-6a1 1 0 00-.293-.707l-3-3A1 1 0 0016 4H3z' },
+    { label: c.fuel === 'Électrique' ? 'Autonomie' : 'Consommation', value: c.fuel === 'Électrique' ? (c.range ? `${c.range} km` : `${c.consumption} kWh/100km`) : `${c.consumption} L/100km`, iconPath: 'M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1v-1h3.05a2.5 2.5 0 014.9 0H19a1 1 0 001-1v-6a1 1 0 00-.293-.707l-3-3A1 1 0 0016 4H3z' },
     { label: 'Vitesse max', value: c.topSpeed ? `${c.topSpeed} km/h` : '—', iconPath: 'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z' },
     { label: 'Boîte', value: c.transmission, iconPath: 'M8 9l4-4 4 4m0 6l-4 4-4-4' },
     { label: 'Garantie', value: c.warranty ?? '3 ans', iconPath: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z' },

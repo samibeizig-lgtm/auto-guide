@@ -51,6 +51,7 @@
               <StarRating v-if="row.key === 'rating'" :rating="(car as any)[row.key]" />
               <span v-else-if="row.key === 'price'">{{ formatPrice((car as any)[row.key]) }}</span>
               <span v-else-if="row.key === 'priceOccasion'">{{ car.priceOccasion ? formatPrice(car.priceOccasion) : '—' }}</span>
+              <span v-else-if="row.key === 'range'">{{ (car as any)[row.key] ? (car as any)[row.key] + ' km' : '—' }}</span>
               <span v-else-if="row.key === 'consumption'">{{ (car as any)[row.key] }} {{ car.fuel === 'Électrique' ? 'kWh/100km' : 'L/100km' }}</span>
               <span v-else-if="row.key === 'power'">{{ (car as any)[row.key] }} ch</span>
               <span v-else-if="row.key === 'acceleration'">{{ (car as any)[row.key] ? (car as any)[row.key] + ' s' : '—' }}</span>
@@ -167,6 +168,7 @@ const specRows = [
   { key: 'rating', label: 'Note globale', better: 'max' },
   { key: 'fuel', label: 'Carburant', better: null },
   { key: 'power', label: 'Puissance (ch)', better: 'max' },
+  { key: 'range', label: 'Autonomie électrique', better: 'max' },
   { key: 'consumption', label: 'Consommation', better: 'min' },
   { key: 'acceleration', label: '0 – 100 km/h', better: 'min' },
   { key: 'topSpeed', label: 'Vitesse max', better: 'max' },

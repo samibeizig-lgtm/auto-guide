@@ -36,6 +36,7 @@ export interface Car {
   acceleration?: number
   topSpeed?: number
   driveType?: string
+  range?: number           // Autonomie électrique en km
   // Options disponibles
   options?: string[]
   // Équipements par catégorie (affichage fiche)
@@ -1121,6 +1122,7 @@ export const cars: Car[] = [
     // Performances
     acceleration: 6.0,
     topSpeed: 195,
+    range: 560,
     driveType: 'Propulsion (RWD)',
     // Infos supplémentaires
     warranty: '5 ans (2+3)',
