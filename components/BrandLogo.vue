@@ -40,7 +40,7 @@ const logoMap: Record<string, string> = {
   Seat:       '/logos/seat.svg',
   Skoda:      '/logos/skoda.svg',
   Ford:       '/logos/ford.svg',
-  BMW:        '/logos/bmw.svg',
+  BMW:        '/logos/bmw.png',
   Mercedes:   '/logos/mercedes.svg',
   Nissan:     '/logos/nissan.svg',
   Mitsubishi: '/logos/mitsubishi.svg',
