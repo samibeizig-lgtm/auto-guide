@@ -349,7 +349,7 @@ const categories = ['SUV', 'Berline', 'Citadine', 'Compacte', 'Crossover', 'Mono
 const fuels = ['Essence', 'Diesel', 'Hybride', 'Hybride rechargeable', 'Électrique', 'GPL']
 
 const srchBrandList = computed(() =>
-  [...new Set((allCars.value ?? []).map((c: any) => c.brand))].filter(Boolean).sort()
+  (allBrands.value ?? []).map((b: any) => b.name).filter(Boolean).sort()
 )
 const srchModelList = computed(() =>
   srchBrand.value
