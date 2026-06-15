@@ -1,12 +1,9 @@
 <template>
   <footer class="bg-gray-900 text-gray-400 mt-20">
 
-    <!-- Bande logo : fond blanc à gauche, courbe convexe vers le noir à droite -->
-    <div class="relative bg-gray-900" style="height:90px">
-      <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,0 L370,0 Q420,45 370,90 L0,90 Z" fill="white"/>
-      </svg>
-      <div class="relative z-10 h-full flex items-center px-8">
+    <!-- Onglet logo -->
+    <div class="px-8">
+      <div class="inline-flex items-center bg-white rounded-t-3xl px-8 py-5">
         <NuxtLink to="/">
           <img src="/logo-site.jpg" alt="Tunisiamotors.com" class="h-11 w-auto" />
         </NuxtLink>
