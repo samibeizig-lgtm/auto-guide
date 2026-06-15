@@ -163,10 +163,20 @@
 
     <!-- ===== BANDE MARQUES ===== -->
     <section class="bg-gray-950 py-10 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 mb-6">
+      <div class="max-w-7xl mx-auto px-4 mb-6 flex items-center justify-between">
         <p class="text-gray-500 text-xs font-semibold uppercase tracking-widest">Marques disponibles</p>
+        <div class="flex gap-2">
+          <button @click="scrollBrands(-1)"
+            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-orange-500 text-gray-400 hover:text-white flex items-center justify-center transition-all duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button @click="scrollBrands(1)"
+            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-orange-500 text-gray-400 hover:text-white flex items-center justify-center transition-all duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
-      <div class="flex gap-5 items-center px-8 overflow-x-auto pb-2">
+      <div ref="brandStrip" class="flex gap-5 items-center px-8 overflow-x-auto scrollbar-none" style="scrollbar-width:none;-ms-overflow-style:none">
         <NuxtLink
           v-for="b in brandList" :key="b.name"
           to="/voitures-neuves"
@@ -360,6 +370,12 @@ const srchCountryList = computed(() =>
   [...new Set((allBrands.value ?? []).map((b: any) => b.country))].filter(Boolean).sort()
 )
 const dealerList = computed(() => allDealers.value ?? [])
+
+// Défilement bande marques
+const brandStrip = ref<HTMLElement | null>(null)
+const scrollBrands = (dir: 1 | -1) => {
+  brandStrip.value?.scrollBy({ left: dir * 280, behavior: 'smooth' })
+}
 
 const router = useRouter()
 const goSearch = () => {
