@@ -4,7 +4,8 @@
     <!-- Bande logo : fond blanc à gauche, courbe convexe vers le noir à droite -->
     <div class="relative bg-gray-900" style="height:90px">
       <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,0 L440,0 Q560,0 560,45 Q560,90 440,90 L0,90 Z" fill="white"/>
+        <!-- Vague en S juste après le logo (~320px) -->
+        <path d="M0,0 L320,0 C390,0 250,90 320,90 L0,90 Z" fill="white"/>
       </svg>
       <div class="relative z-10 h-full flex items-center px-8">
         <NuxtLink to="/">
