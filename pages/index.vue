@@ -6,7 +6,7 @@
 
       <!-- Image de fond -->
       <img
-        src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1920&q=90"
+        src="/hero-bg.jpg"
         alt="Hero"
         class="absolute inset-0 w-full h-full object-cover"
       />
