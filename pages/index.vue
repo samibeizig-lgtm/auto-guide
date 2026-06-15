@@ -52,57 +52,104 @@
             </div>
           </div>
 
-          <!-- Visuel droite -->
-          <div class="relative hidden lg:flex justify-center items-center">
-
-            <!-- Carte principale -->
-            <div class="relative bg-gray-950 rounded-3xl overflow-hidden w-full max-w-sm shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1555215695-3004980ad54e?w=600&q=85"
-                alt="Voiture"
-                class="w-full h-56 object-cover opacity-90"
-              />
-              <div class="p-5">
-                <div class="flex items-center justify-between mb-3">
+          <!-- Outil de recherche droite -->
+          <div class="hidden lg:block w-full max-w-sm">
+            <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
+              <!-- Photo déco -->
+              <div class="relative h-36 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80"
+                  alt="Trouver ma voiture" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-950/80 to-transparent flex items-end p-4">
                   <div>
-                    <p class="text-white font-bold text-lg">BMW Série 5</p>
-                    <p class="text-gray-400 text-sm">Berline · 2024</p>
+                    <p class="text-white font-black text-lg leading-tight">Trouver ma voiture</p>
+                    <p class="text-gray-300 text-xs">Recherche personnalisée</p>
                   </div>
-                  <span class="bg-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-xl">Neuf</span>
-                </div>
-                <div class="flex gap-3 mb-4">
-                  <div class="flex-1 bg-white/5 rounded-xl p-2.5 text-center">
-                    <p class="text-white font-bold text-sm">340 ch</p>
-                    <p class="text-gray-500 text-[10px]">Puissance</p>
-                  </div>
-                  <div class="flex-1 bg-white/5 rounded-xl p-2.5 text-center">
-                    <p class="text-white font-bold text-sm">5.3 s</p>
-                    <p class="text-gray-500 text-[10px]">0–100 km/h</p>
-                  </div>
-                  <div class="flex-1 bg-white/5 rounded-xl p-2.5 text-center">
-                    <p class="text-white font-bold text-sm">250+</p>
-                    <p class="text-gray-500 text-[10px]">km/h max</p>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <p class="text-orange-400 font-black text-xl">385 000 TND</p>
-                  <NuxtLink to="/voitures-neuves" class="text-xs bg-white/10 hover:bg-white/20 text-white px-3 py-1.5 rounded-xl font-medium transition-colors">Voir →</NuxtLink>
                 </div>
               </div>
-            </div>
 
-            <!-- Badge flottant cote -->
-            <div class="absolute -top-4 -right-4 bg-white border border-gray-100 shadow-xl rounded-2xl px-4 py-3">
-              <p class="text-xs text-gray-400 mb-0.5">Cote occasion</p>
-              <p class="text-gray-950 font-black text-lg">−32%</p>
-            </div>
+              <div class="p-5 space-y-3">
+                <!-- Marque -->
+                <div>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Marque</label>
+                  <select v-model="srchBrand" @change="srchModel = ''"
+                    class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                    <option value="">Toutes les marques</option>
+                    <option v-for="b in srchBrandList" :key="b" :value="b">{{ b }}</option>
+                  </select>
+                </div>
 
-            <!-- Badge flottant crédit -->
-            <div class="absolute -bottom-4 -left-4 bg-orange-500 text-white shadow-xl rounded-2xl px-4 py-3">
-              <p class="text-xs text-orange-100 mb-0.5">Mensualité estimée</p>
-              <p class="font-black text-lg">4 200 TND/mois</p>
-            </div>
+                <!-- Modèle -->
+                <div>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Modèle</label>
+                  <select v-model="srchModel" :disabled="!srchBrand"
+                    class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 disabled:opacity-40">
+                    <option value="">Tous les modèles</option>
+                    <option v-for="m in srchModelList" :key="m" :value="m">{{ m }}</option>
+                  </select>
+                </div>
 
+                <div class="grid grid-cols-2 gap-3">
+                  <!-- Catégorie -->
+                  <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Catégorie</label>
+                    <select v-model="srchCategory"
+                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                      <option value="">Toutes</option>
+                      <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
+                    </select>
+                  </div>
+
+                  <!-- Type carburant -->
+                  <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Énergie</label>
+                    <select v-model="srchFuel"
+                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                      <option value="">Tous</option>
+                      <option v-for="f in fuels" :key="f" :value="f">{{ f }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                  <!-- Disponibilité -->
+                  <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Disponibilité</label>
+                    <select v-model="srchAvail"
+                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                      <option value="">Tous</option>
+                      <option value="1">Disponible</option>
+                      <option value="0">Sur commande</option>
+                    </select>
+                  </div>
+
+                  <!-- Pays d'origine -->
+                  <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Pays d'origine</label>
+                    <select v-model="srchCountry"
+                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                      <option value="">Tous</option>
+                      <option v-for="p in srchCountryList" :key="p" :value="p">{{ p }}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Concessionnaire -->
+                <div>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Concessionnaire</label>
+                  <select v-model="srchDealer"
+                    class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                    <option value="">Tous les concessionnaires</option>
+                    <option v-for="d in dealerList" :key="d._id" :value="d.name">{{ d.name }}{{ d.city ? ` — ${d.city}` : '' }}</option>
+                  </select>
+                </div>
+
+                <button @click="goSearch"
+                  class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                  Rechercher
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -279,7 +326,7 @@
 </template>
 
 <script setup lang="ts">
-import { fetchCars, fetchBrands, fetchArticles } from '~/composables/useSanity'
+import { fetchCars, fetchBrands, fetchArticles, fetchDealers } from '~/composables/useSanity'
 import { brandData } from '~/data/brands'
 
 useHead({ title: 'Tunisiamotors.com - Catalogue, Prix et Comparateur auto en Tunisie' })
@@ -287,6 +334,45 @@ useHead({ title: 'Tunisiamotors.com - Catalogue, Prix et Comparateur auto en Tun
 const { data: allCars } = await useAsyncData('cars', () => fetchCars())
 const { data: allBrands } = await useAsyncData('brands', () => fetchBrands())
 const { data: allArticles } = await useAsyncData('articles', () => fetchArticles())
+const { data: allDealers } = await useAsyncData('dealers', () => fetchDealers())
+
+// ── Outil de recherche hero ──
+const srchBrand = ref('')
+const srchModel = ref('')
+const srchCategory = ref('')
+const srchFuel = ref('')
+const srchAvail = ref('')
+const srchCountry = ref('')
+const srchDealer = ref('')
+
+const categories = ['SUV', 'Berline', 'Citadine', 'Compacte', 'Crossover', 'Monospace', 'Pickup', 'Coupé', 'Cabriolet']
+const fuels = ['Essence', 'Diesel', 'Hybride', 'Hybride rechargeable', 'Électrique', 'GPL']
+
+const srchBrandList = computed(() =>
+  [...new Set((allCars.value ?? []).map((c: any) => c.brand))].filter(Boolean).sort()
+)
+const srchModelList = computed(() =>
+  srchBrand.value
+    ? [...new Set((allCars.value ?? []).filter((c: any) => c.brand === srchBrand.value).map((c: any) => c.model))].sort()
+    : []
+)
+const srchCountryList = computed(() =>
+  [...new Set((allBrands.value ?? []).map((b: any) => b.country))].filter(Boolean).sort()
+)
+const dealerList = computed(() => allDealers.value ?? [])
+
+const router = useRouter()
+const goSearch = () => {
+  const params = new URLSearchParams()
+  if (srchBrand.value) params.set('brand', srchBrand.value)
+  if (srchModel.value) params.set('model', srchModel.value)
+  if (srchCategory.value) params.set('category', srchCategory.value)
+  if (srchFuel.value) params.set('fuel', srchFuel.value)
+  if (srchAvail.value) params.set('available', srchAvail.value)
+  if (srchCountry.value) params.set('country', srchCountry.value)
+  if (srchDealer.value) params.set('dealer', srchDealer.value)
+  router.push(`/recherche?${params.toString()}`)
+}
 
 const topCars = computed(() =>
   (allCars.value ?? [])

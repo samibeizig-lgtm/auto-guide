@@ -190,9 +190,13 @@ const { data: allCars } = await useAsyncData('cars', () => fetchCars())
 
 const searchText = ref(String(route.query.q ?? ''))
 const selectedBrands = ref<string[]>(route.query.brand ? [String(route.query.brand)] : [])
-const selectedFuels = ref<string[]>([])
-const selectedCategories = ref<string[]>([])
+const selectedFuels = ref<string[]>(route.query.fuel ? [String(route.query.fuel)] : [])
+const selectedCategories = ref<string[]>(route.query.category ? [String(route.query.category)] : [])
 const selectedTransmissions = ref<string[]>([])
+const filterModel = ref(String(route.query.model ?? ''))
+const filterAvailable = ref(String(route.query.available ?? ''))
+const filterCountry = ref(String(route.query.country ?? ''))
+const filterDealer = ref(String(route.query.dealer ?? ''))
 const budgetMin = ref<number | null>(null)
 const budgetMax = ref<number | null>(null)
 const sortBy = ref('price-asc')
@@ -209,6 +213,7 @@ const availableCategories = computed(() =>
 const hasFilters = computed(() =>
   searchText.value || selectedBrands.value.length || selectedFuels.value.length ||
   selectedCategories.value.length || selectedTransmissions.value.length ||
+  filterModel.value || filterAvailable.value || filterCountry.value || filterDealer.value ||
   budgetMin.value || budgetMax.value
 )
 
@@ -229,6 +234,12 @@ const filteredCars = computed(() => {
     list = list.filter(c => selectedCategories.value.includes(c.category))
   if (selectedTransmissions.value.length)
     list = list.filter(c => selectedTransmissions.value.some(t => c.transmission?.includes(t)))
+  if (filterModel.value)
+    list = list.filter(c => c.model === filterModel.value)
+  if (filterAvailable.value === '1')
+    list = list.filter(c => c.available !== false)
+  if (filterAvailable.value === '0')
+    list = list.filter(c => c.available === false)
   if (budgetMin.value)
     list = list.filter(c => c.price >= budgetMin.value!)
   if (budgetMax.value)

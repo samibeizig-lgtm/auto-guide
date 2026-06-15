@@ -41,6 +41,15 @@ export const fetchBrands = () =>
   client.fetch(`*[_type == "brand"] | order(name asc) {
     _id, name, country, color,
     "logo": logo.asset->url,
+    "dealers": dealers[]->{ _id, name, city },
+  }`)
+
+// Fetch tous les concessionnaires
+export const fetchDealers = () =>
+  client.fetch(`*[_type == "dealer"] | order(name asc) {
+    _id, name, city, address, phone, website,
+    "logo": logo.asset->url,
+    "brands": brands[]->name,
   }`)
 
 // Fetch tous les articles
