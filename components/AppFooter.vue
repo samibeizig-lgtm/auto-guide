@@ -1,19 +1,16 @@
 <template>
   <footer class="bg-gray-900 text-gray-400 mt-20">
 
-    <!-- Bande logo fond blanc avec courbure -->
-    <div class="relative bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-center">
+    <!-- Onglet logo (fond blanc, courbure haut-gauche seulement) -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="inline-block bg-white px-8 py-5 rounded-t-3xl shadow-lg">
         <NuxtLink to="/">
-          <img src="/logo-site.jpg" alt="Tunisiamotors.com" class="h-12 w-auto" />
+          <img src="/logo-site.jpg" alt="Tunisiamotors.com" class="h-11 w-auto" />
         </NuxtLink>
       </div>
-      <!-- Courbure bas -->
-      <svg class="w-full block" style="margin-bottom:-1px" viewBox="0 0 1440 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,0 C360,48 1080,48 1440,0 L1440,48 L0,48 Z" fill="#111827"/>
-      </svg>
     </div>
 
+    <!-- Contenu footer -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
 
