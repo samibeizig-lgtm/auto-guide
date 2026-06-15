@@ -36,11 +36,6 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                 Voitures neuves
               </NuxtLink>
-              <NuxtLink to="/recherche"
-                class="inline-flex items-center justify-center gap-2 border border-gray-200 hover:border-gray-400 text-gray-700 font-semibold px-6 py-3.5 rounded-2xl transition-all duration-200 active:scale-95 bg-white">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                Recherche avancée
-              </NuxtLink>
             </div>
 
             <!-- Stats inline -->
@@ -53,21 +48,10 @@
           </div>
 
           <!-- Outil de recherche droite -->
-          <div class="hidden lg:block w-full max-w-sm">
-            <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden">
-              <!-- Photo déco -->
-              <div class="relative h-36 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600&q=80"
-                  alt="Trouver ma voiture" class="w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-gradient-to-t from-gray-950/80 to-transparent flex items-end p-4">
-                  <div>
-                    <p class="text-white font-black text-lg leading-tight">Trouver ma voiture</p>
-                    <p class="text-gray-300 text-xs">Recherche personnalisée</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="p-5 space-y-3">
+          <div class="hidden lg:flex w-full max-w-sm items-stretch">
+            <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 w-full flex flex-col">
+              <div class="p-5 flex flex-col gap-3 flex-1">
+                <p class="font-black text-gray-900 text-base mb-1">Trouver ma voiture</p>
                 <!-- Marque -->
                 <div>
                   <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Marque</label>
@@ -143,8 +127,19 @@
                   </select>
                 </div>
 
+                <!-- Budget -->
+                <div>
+                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Budget (TND)</label>
+                  <div class="grid grid-cols-2 gap-2">
+                    <input v-model.number="srchBudgetMin" type="number" placeholder="Min" min="0" step="1000"
+                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50" />
+                    <input v-model.number="srchBudgetMax" type="number" placeholder="Max" min="0" step="1000"
+                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50" />
+                  </div>
+                </div>
+
                 <button @click="goSearch"
-                  class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2">
+                  class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 mt-auto">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
                   Rechercher
                 </button>
@@ -354,6 +349,8 @@ const srchFuel = ref('')
 const srchAvail = ref('')
 const srchCountry = ref('')
 const srchDealer = ref('')
+const srchBudgetMin = ref<number | null>(null)
+const srchBudgetMax = ref<number | null>(null)
 
 const categories = ['SUV', 'Berline', 'Citadine', 'Compacte', 'Crossover', 'Monospace', 'Pickup', 'Coupé', 'Cabriolet']
 const fuels = ['Essence', 'Diesel', 'Hybride', 'Hybride rechargeable', 'Électrique', 'GPL']
@@ -387,6 +384,8 @@ const goSearch = () => {
   if (srchAvail.value) params.set('available', srchAvail.value)
   if (srchCountry.value) params.set('country', srchCountry.value)
   if (srchDealer.value) params.set('dealer', srchDealer.value)
+  if (srchBudgetMin.value) params.set('budgetMin', String(srchBudgetMin.value))
+  if (srchBudgetMax.value) params.set('budgetMax', String(srchBudgetMax.value))
   router.push(`/recherche?${params.toString()}`)
 }
 
