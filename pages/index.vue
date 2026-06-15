@@ -2,157 +2,142 @@
   <div>
 
     <!-- ===== HERO ===== -->
-    <section class="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
+    <section class="relative h-screen flex items-end justify-center overflow-hidden">
 
-      <!-- Grille de points décorative -->
-      <div class="absolute inset-0 pointer-events-none"
-        style="background-image: radial-gradient(circle, #e5e7eb 1px, transparent 1px); background-size: 32px 32px; opacity: 0.5" />
+      <!-- Image de fond -->
+      <img
+        src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&q=90"
+        alt="Hero"
+        class="absolute inset-0 w-full h-full object-cover"
+      />
+      <!-- Overlay sombre -->
+      <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-gray-950/30" />
 
-      <!-- Dégradé orangé bas-gauche -->
-      <div class="absolute -bottom-32 -left-32 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, rgba(249,115,22,0.12) 0%, transparent 70%)" />
-      <!-- Dégradé orangé haut-droite -->
-      <div class="absolute -top-32 right-0 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style="background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 70%)" />
+      <!-- Contenu centré -->
+      <div class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-28 text-center">
+        <p class="text-orange-400 text-xs font-bold uppercase tracking-widest mb-4">Tunisie 🇹🇳</p>
+        <h1 class="text-5xl md:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
+          Le guide auto<br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">de référence</span>
+        </h1>
+        <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+          Comparez les prix, explorez les fiches techniques et estimez la valeur de votre véhicule.
+        </p>
 
-      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-          <!-- Texte gauche -->
-          <div>
-            <h1 class="text-5xl md:text-6xl xl:text-7xl font-black text-gray-950 leading-[1.05] tracking-tight mb-6">
-              Le guide auto<br />
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">de référence</span><br />
-              en Tunisie
-            </h1>
-
-            <p class="text-lg text-gray-500 mb-10 leading-relaxed max-w-lg">
-              Comparez les prix, explorez les fiches techniques et estimez la valeur de votre véhicule — tout en un seul endroit.
-            </p>
-
-            <div class="flex flex-col sm:flex-row gap-3">
-              <NuxtLink to="/voitures-neuves"
-                class="inline-flex items-center justify-center gap-2 bg-gray-950 hover:bg-gray-800 text-white font-semibold px-6 py-3.5 rounded-2xl transition-all duration-200 active:scale-95">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-                Voitures neuves
-              </NuxtLink>
-            </div>
-
-            <!-- Stats inline -->
-            <div class="flex gap-8 mt-12 pt-8 border-t border-gray-100">
-              <div v-for="s in quickStats" :key="s.label">
-                <p class="text-2xl font-black text-gray-950">{{ s.value }}</p>
-                <p class="text-xs text-gray-400 mt-0.5">{{ s.label }}</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Outil de recherche droite -->
-          <div class="hidden lg:flex w-full max-w-sm items-stretch">
-            <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 w-full flex flex-col">
-              <div class="p-5 flex flex-col gap-3 flex-1">
-                <p class="font-black text-gray-900 text-base mb-1">Trouver ma voiture</p>
-                <!-- Marque -->
-                <div>
-                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Marque</label>
-                  <select v-model="srchBrand" @change="srchModel = ''"
-                    class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
-                    <option value="">Toutes les marques</option>
-                    <option v-for="b in srchBrandList" :key="b" :value="b">{{ b }}</option>
-                  </select>
-                </div>
-
-                <!-- Modèle -->
-                <div>
-                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Modèle</label>
-                  <select v-model="srchModel" :disabled="!srchBrand"
-                    class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 disabled:opacity-40">
-                    <option value="">Tous les modèles</option>
-                    <option v-for="m in srchModelList" :key="m" :value="m">{{ m }}</option>
-                  </select>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                  <!-- Catégorie -->
-                  <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Catégorie</label>
-                    <select v-model="srchCategory"
-                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
-                      <option value="">Toutes</option>
-                      <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
-                    </select>
-                  </div>
-
-                  <!-- Type carburant -->
-                  <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Énergie</label>
-                    <select v-model="srchFuel"
-                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
-                      <option value="">Tous</option>
-                      <option v-for="f in fuels" :key="f" :value="f">{{ f }}</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                  <!-- Disponibilité -->
-                  <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Disponibilité</label>
-                    <select v-model="srchAvail"
-                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
-                      <option value="">Tous</option>
-                      <option value="1">Disponible</option>
-                      <option value="0">Sur commande</option>
-                    </select>
-                  </div>
-
-                  <!-- Pays d'origine -->
-                  <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Pays d'origine</label>
-                    <select v-model="srchCountry"
-                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
-                      <option value="">Tous</option>
-                      <option v-for="p in srchCountryList" :key="p" :value="p">{{ p }}</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Concessionnaire -->
-                <div>
-                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Concessionnaire</label>
-                  <select v-model="srchDealer"
-                    class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
-                    <option value="">Tous les concessionnaires</option>
-                    <option v-for="d in dealerList" :key="d._id" :value="d.name">{{ d.name }}{{ d.city ? ` — ${d.city}` : '' }}</option>
-                  </select>
-                </div>
-
-                <!-- Budget -->
-                <div>
-                  <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Budget (TND)</label>
-                  <div class="grid grid-cols-2 gap-2">
-                    <input v-model.number="srchBudgetMin" type="number" placeholder="Min" min="0" step="1000"
-                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50" />
-                    <input v-model.number="srchBudgetMax" type="number" placeholder="Max" min="0" step="1000"
-                      class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50" />
-                  </div>
-                </div>
-
-                <button @click="goSearch"
-                  class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 mt-auto">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                  Rechercher
-                </button>
-              </div>
-            </div>
+        <!-- Stats -->
+        <div class="flex justify-center gap-12">
+          <div v-for="s in quickStats" :key="s.label" class="text-center">
+            <p class="text-3xl font-black text-white">{{ s.value }}</p>
+            <p class="text-xs text-gray-400 mt-1">{{ s.label }}</p>
           </div>
         </div>
       </div>
 
-      <!-- Scroll down -->
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-300">
-        <div class="w-px h-8 bg-gradient-to-b from-transparent to-gray-300" />
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      <!-- Flèche scroll -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-400 animate-bounce">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+    </section>
+
+    <!-- ===== OUTIL DE RECHERCHE ===== -->
+    <section class="relative z-10 -mt-8">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-3xl shadow-2xl border border-gray-100 p-6 md:p-8">
+          <p class="font-black text-gray-900 text-lg mb-5 flex items-center gap-2">
+            <svg class="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            Trouver ma voiture
+          </p>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
+            <!-- Marque -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Marque</label>
+              <select v-model="srchBrand" @change="srchModel = ''"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                <option value="">Toutes les marques</option>
+                <option v-for="b in srchBrandList" :key="b" :value="b">{{ b }}</option>
+              </select>
+            </div>
+
+            <!-- Modèle -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Modèle</label>
+              <select v-model="srchModel" :disabled="!srchBrand"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50 disabled:opacity-40">
+                <option value="">Tous les modèles</option>
+                <option v-for="m in srchModelList" :key="m" :value="m">{{ m }}</option>
+              </select>
+            </div>
+
+            <!-- Catégorie -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Catégorie</label>
+              <select v-model="srchCategory"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                <option value="">Toutes</option>
+                <option v-for="c in categories" :key="c" :value="c">{{ c }}</option>
+              </select>
+            </div>
+
+            <!-- Énergie -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Énergie</label>
+              <select v-model="srchFuel"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                <option value="">Tous</option>
+                <option v-for="f in fuels" :key="f" :value="f">{{ f }}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+            <!-- Disponibilité -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Disponibilité</label>
+              <select v-model="srchAvail"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                <option value="">Tous</option>
+                <option value="1">Disponible</option>
+                <option value="0">Sur commande</option>
+              </select>
+            </div>
+
+            <!-- Pays d'origine -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Pays d'origine</label>
+              <select v-model="srchCountry"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50">
+                <option value="">Tous</option>
+                <option v-for="p in srchCountryList" :key="p" :value="p">{{ p }}</option>
+              </select>
+            </div>
+
+            <!-- Budget min -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Budget min (TND)</label>
+              <input v-model.number="srchBudgetMin" type="number" placeholder="0" min="0" step="5000"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50" />
+            </div>
+
+            <!-- Budget max -->
+            <div>
+              <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Budget max (TND)</label>
+              <input v-model.number="srchBudgetMax" type="number" placeholder="Illimité" min="0" step="5000"
+                class="w-full text-sm border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-orange-400 bg-gray-50" />
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button @click="goSearch"
+              class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-8 py-3 rounded-xl transition-colors flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              Rechercher
+            </button>
+            <NuxtLink to="/voitures-neuves" class="text-sm text-gray-500 hover:text-orange-500 font-medium transition-colors">
+              Voir tous les modèles →
+            </NuxtLink>
+          </div>
+        </div>
       </div>
     </section>
 
