@@ -1,16 +1,12 @@
 <template>
   <footer class="bg-gray-900 text-gray-400 mt-20">
 
-    <!-- Bande logo : fond blanc à gauche, courbe vers le noir à droite -->
-    <div class="relative overflow-hidden bg-gray-900">
-      <!-- Zone blanche avec courbe SVG sur le bord droit -->
-      <div class="absolute inset-0 bg-white" style="clip-path: ellipse(38% 100% at 0% 50%);" />
-      <!-- SVG courbe de transition -->
-      <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,0 L520,0 Q580,0 600,50 Q620,100 680,100 L0,100 Z" fill="white"/>
+    <!-- Bande logo : fond blanc à gauche, courbe convexe vers le noir à droite -->
+    <div class="relative bg-gray-900" style="height:90px">
+      <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 L440,0 Q560,0 560,45 Q560,90 440,90 L0,90 Z" fill="white"/>
       </svg>
-      <!-- Logo -->
-      <div class="relative z-10 max-w-7xl mx-auto px-8 py-6">
+      <div class="relative z-10 h-full flex items-center px-8">
         <NuxtLink to="/">
           <img src="/logo-site.jpg" alt="Tunisiamotors.com" class="h-11 w-auto" />
         </NuxtLink>
