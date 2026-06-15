@@ -384,7 +384,7 @@ const topCars = computed(() =>
 const latestArticles = computed(() => (allArticles.value ?? []).slice(0, 3))
 
 const brandList = computed(() =>
-  (allBrands.value ?? []).slice(0, 16).map((b: any) => ({
+  (allBrands.value ?? []).map((b: any) => ({
     name: b.name,
     color: b.color ?? brandData[b.name]?.color ?? '#374151',
     logo: b.logo ?? null,
