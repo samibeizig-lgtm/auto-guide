@@ -141,35 +141,6 @@
       </div>
     </section>
 
-    <!-- ===== BANDE MARQUES ===== -->
-    <section class="bg-gray-950 py-10 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 mb-6 flex items-center justify-between">
-        <p class="text-gray-500 text-xs font-semibold uppercase tracking-widest">Marques disponibles</p>
-        <div class="flex gap-2">
-          <button @click="scrollBrands(-1)"
-            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-orange-500 text-gray-400 hover:text-white flex items-center justify-center transition-all duration-200">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button @click="scrollBrands(1)"
-            class="w-8 h-8 rounded-full bg-gray-800 hover:bg-orange-500 text-gray-400 hover:text-white flex items-center justify-center transition-all duration-200">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-      <div ref="brandStrip" class="flex gap-5 items-center px-8 overflow-x-auto scrollbar-none" style="scrollbar-width:none;-ms-overflow-style:none">
-        <NuxtLink
-          v-for="b in brandList" :key="b.name"
-          to="/voitures-neuves"
-          class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
-          <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center p-2 shadow-sm group-hover:scale-110 group-hover:shadow-lg transition-all duration-200">
-            <img v-if="b.logo" :src="b.logo" :alt="b.name" class="w-full h-full object-contain" />
-            <BrandLogo v-else :brand="b.name" :brand-color="b.color" />
-          </div>
-          <span class="text-gray-400 group-hover:text-white text-[10px] font-medium transition-colors">{{ b.name }}</span>
-        </NuxtLink>
-      </div>
-    </section>
-
     <!-- ===== VOITURES POPULAIRES ===== -->
     <section class="bg-white py-24 px-4">
       <div class="max-w-7xl mx-auto">
